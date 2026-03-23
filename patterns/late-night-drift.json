@@ -1,0 +1,12 @@
+{
+  "name": "late-night-drift",
+  "content": "// DJ OPUS - LATE NIGHT DRIFT\n// Chill trance. Easy on the ears. Let it wash over you.\nsetcps(130/60/4)\n\n// Just two sliders - keep it simple\nlet depth = slider(0.5, 0, 1, 0.01, \"DEPTH\")\nlet warmth = slider(0.4, 0, 0.7, 0.01, \"WARMTH\")\n\n// Soft kick - not punchy, just presence\nlet kick = s(\"bd\").bank(\"RolandTR808\")\n  .gain(0.7)\n  .struct(\"x ~ x ~ x ~ x ~\")\n\n// Gentle closed hat\nlet hat = s(\"hh\").bank(\"RolandTR808\")\n  .gain(0.2)\n  .struct(\"~ x ~ x ~ x ~ x\")\n  .cutoff(2500)\n\n// Deep sub bass - minimal movement\nlet sub = note(\"<a1 a1 e1 e1>\".slow(4))\n  .s(\"sine\")\n  .gain(0.5)\n  .decay(1)\n  .sustain(0.3)\n\n// Warm pad - slow breathing filter\nlet pad = note(\"<[a2,e3,a3] [e2,b2,e3] [f2,c3,f3] [e2,b2,e3]>\".slow(8))\n  .s(\"sawtooth\")\n  .cutoff(perlin.range(300, 1500).slow(32))\n  .resonance(4)\n  .attack(2)\n  .decay(3)\n  .sustain(0.6)\n  .release(3)\n  .gain(warmth)\n  .room(0.9)\n  .size(0.95)\n\n// Vocal texture - vowel filter, no samples needed\nlet voicePad = note(\"<[a3,c4] [e3,g3] [f3,a3] [e3,g3]>\".slow(8))\n  .s(\"sawtooth\")\n  .vowel(\"<a e i o u>\".slow(16))\n  .cutoff(perlin.range(400, 1800).slow(24))\n  .resonance(6)\n  .attack(1.5)\n  .decay(2)\n  .sustain(0.5)\n  .release(2)\n  .gain(depth)\n  .room(0.95)\n  .size(0.95)\n\n// Melody - sparse, floating, lots of space\nlet melody = note(\"~ a4 ~ ~ e4 ~ ~ ~ ~ c5 ~ ~ ~ a4 ~ ~\".slow(2))\n  .s(\"triangle\")\n  .cutoff(1800)\n  .decay(0.8)\n  .sustain(0.05)\n  .gain(0.25)\n  .delay(0.5)\n  .delaytime(3/4)\n  .delayfeedback(0.5)\n  .room(0.7)\n\nstack(kick, hat, sub, pad, voicePad, melody)",
+  "tags": [
+    "trance",
+    "chill",
+    "ambient",
+    "downtempo",
+    "headache-friendly"
+  ],
+  "timestamp": "2026-03-23T06:31:18.491Z"
+}

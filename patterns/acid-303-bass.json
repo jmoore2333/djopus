@@ -1,0 +1,12 @@
+{
+  "name": "acid-303-bass",
+  "content": "// PATTERN BANK: Acid 303 Bass\n// Classic squelchy acid line for breakdowns\nsetcps(138/60/4)\nlet acidFilter = slider(800, 200, 4000, 10, \"ACID Filter\")\nlet acidRes = slider(18, 5, 25, 0.5, \"ACID Resonance\")\nlet acidVol = slider(0.6, 0, 1, 0.01, \"ACID Volume\")\n\nlet acid = note(\"<a2 a2 c3 a2 e2 e2 g2 e2>\")\n  .s(\"sawtooth\")\n  .cutoff(sine.range(300, acidFilter).fast(2))\n  .resonance(acidRes)\n  .decay(0.15)\n  .sustain(0)\n  .gain(acidVol)\n  .struct(\"x x [x x] x x [~ x] x x\")\n\nlet kick = s(\"bd\").bank(\"RolandTR909\").gain(1.1).struct(\"x x x x\")\nlet hats = s(\"hh\").bank(\"RolandTR909\").gain(0.4).struct(\"~ x ~ x ~ x ~ x\")\n\nstack(kick, hats, acid)",
+  "tags": [
+    "trance",
+    "acid",
+    "bass",
+    "303",
+    "building-block"
+  ],
+  "timestamp": "2026-03-23T06:12:15.126Z"
+}

@@ -1,0 +1,1471 @@
+[
+  {
+    "name": "Trance",
+    "bpm": {
+      "min": 128,
+      "max": 150
+    },
+    "common_keys": [
+      "A minor",
+      "C minor",
+      "D minor",
+      "F minor",
+      "G minor"
+    ],
+    "characteristic_elements": [
+      "four-on-the-floor kick",
+      "rolling bassline",
+      "long breakdowns and buildups",
+      "euphoric pads",
+      "arpeggiated synth leads",
+      "gated reverb on pads",
+      "16th-note hi-hats"
+    ],
+    "sub_genres": [
+      {
+        "name": "Classic Trance",
+        "bpm": {
+          "min": 138,
+          "max": 145
+        },
+        "characteristic_elements": [
+          "supersaw pads",
+          "anthemic melodies",
+          "long breakdowns",
+          "gated reverb stabs",
+          "rolling 16th-note basslines"
+        ],
+        "strudel_approach": {
+          "lead": "sawtooth oscillator detuned with .vowel('a') or .vowel('e') for supersaw character, .room(0.6).delay(0.5)",
+          "bass": "sawtooth with low .lpf() sweep using perlin for movement, .gain(0.8)",
+          "pads": "stack of 3-4 sawtooth oscillators with .room(0.8).delay(0.25), slow .lpf() modulation via perlin",
+          "drums": "s('bd') on every beat, s('hh') on 16ths with velocity variation, s('cp') on 2 and 4",
+          "effects": ".jux(rev) on lead for stereo width, .delay(0.375) for dotted-eighth echoes"
+        }
+      },
+      {
+        "name": "Progressive Trance",
+        "bpm": {
+          "min": 128,
+          "max": 136
+        },
+        "characteristic_elements": [
+          "subtle evolving textures",
+          "hypnotic repetition",
+          "gradual filter sweeps",
+          "layered percussion",
+          "less dramatic breakdowns than classic trance"
+        ],
+        "strudel_approach": {
+          "lead": "triangle oscillator with slow perlin-driven .lpf() sweeps, .delay(0.5).room(0.4)",
+          "bass": "sine oscillator with subtle .lpf() envelope, steady 8th-note pattern",
+          "pads": "sawtooth with heavy .lpf() filtering and .room(0.7), slow chord progressions",
+          "drums": "s('bd') four-on-floor, layered percussion with s('perc') patterns, shaker loops",
+          "effects": "perlin-modulated .lpf() on most elements for evolving texture, .jux(rev) on percussion"
+        }
+      },
+      {
+        "name": "Uplifting Trance",
+        "bpm": {
+          "min": 138,
+          "max": 142
+        },
+        "characteristic_elements": [
+          "soaring lead melodies",
+          "dramatic breakdowns",
+          "massive supersaw chords",
+          "emotional chord progressions",
+          "kick-bass sidechain pumping"
+        ],
+        "strudel_approach": {
+          "lead": "sawtooth with .vowel('a') for brightness, .room(0.5).delay(0.33), pitch bends on melodic phrases",
+          "bass": "sawtooth with tight .lpf() envelope, 16th-note rolling pattern, .gain() modulated for sidechain effect",
+          "pads": "stacked sawtooth oscillators with .room(0.9), open .lpf() for full spectrum, .jux(rev)",
+          "drums": "punchy s('bd') on every beat, s('oh') on offbeats, s('cp') with .room(0.3) on 2 and 4",
+          "effects": "automate .gain() in pumping pattern for sidechain simulation, .delay(0.5) on leads"
+        }
+      },
+      {
+        "name": "Psytrance",
+        "bpm": {
+          "min": 140,
+          "max": 150
+        },
+        "characteristic_elements": [
+          "squelchy acid basslines",
+          "16th-note bass patterns",
+          "psychedelic FX and risers",
+          "minimal melodic content",
+          "heavy use of resonant filter sweeps",
+          "twisted percussion"
+        ],
+        "strudel_approach": {
+          "lead": "square oscillator with fast perlin .lpf() sweeps and high resonance .lpq(15), .delay(0.25)",
+          "bass": "sawtooth with aggressive .lpf() envelope on every 16th note, .lpq(10) for squelch, alternating pitch patterns",
+          "pads": "sine oscillator drones with .room(0.9), sparse and dark",
+          "drums": "s('bd') on every beat with short decay, s('hh') on 16ths, minimal s('cp'), layered tribal percussion",
+          "effects": "heavy perlin on .lpf() and .hpf() for psychedelic movement, .jux(rev) for spatial disorientation, .speed() variations on percussion"
+        }
+      },
+      {
+        "name": "Acid Trance",
+        "bpm": {
+          "min": 135,
+          "max": 145
+        },
+        "characteristic_elements": [
+          "TB-303 style acid basslines",
+          "resonant filter sweeps",
+          "repetitive hypnotic patterns",
+          "slide and accent patterns",
+          "distorted squelchy bass"
+        ],
+        "strudel_approach": {
+          "lead": "sawtooth with high .lpq(20) resonance and perlin-swept .lpf(), .distort(0.3) for grit",
+          "bass": "sawtooth or square with .lpf() modulated by perlin, .lpq(15-25) for classic acid squelch, .slide() between notes",
+          "pads": "minimal, sine-based drones with .room(0.5)",
+          "drums": "s('bd') four-on-floor, s('oh') on offbeats, s('hh') 16ths, s('cp') on 2 and 4",
+          "effects": "perlin .lpf() sweep is essential for acid character, .distort(0.2) for warmth, .jux(rev) on acid line"
+        }
+      }
+    ],
+    "strudel_approach": {
+      "lead": "sawtooth oscillator with .vowel() modulation, .room(0.5).delay(0.5)",
+      "bass": "sawtooth with .lpf() envelope, 16th-note patterns",
+      "pads": "stacked sawtooth oscillators with .room(0.8), .jux(rev) for width",
+      "drums": "s('bd') four-on-floor, s('hh') 16ths, s('cp') on 2 and 4",
+      "effects": "perlin-driven .lpf() sweeps, .delay() for rhythmic echoes, .jux(rev) for stereo spread"
+    }
+  },
+  {
+    "name": "House",
+    "bpm": {
+      "min": 118,
+      "max": 132
+    },
+    "common_keys": [
+      "C minor",
+      "G minor",
+      "A minor",
+      "D minor",
+      "F major",
+      "Bb major"
+    ],
+    "characteristic_elements": [
+      "four-on-the-floor kick",
+      "offbeat hi-hats",
+      "claps or snares on 2 and 4",
+      "syncopated basslines",
+      "chord stabs",
+      "vocal chops"
+    ],
+    "sub_genres": [
+      {
+        "name": "Deep House",
+        "bpm": {
+          "min": 118,
+          "max": 125
+        },
+        "characteristic_elements": [
+          "warm sub bass",
+          "jazzy chords (7ths, 9ths)",
+          "muted percussion",
+          "soft pads",
+          "soulful vocal samples",
+          "restrained dynamics"
+        ],
+        "strudel_approach": {
+          "lead": "sine or triangle oscillator with .room(0.6), warm melodic phrases, .delay(0.33)",
+          "bass": "sine oscillator with gentle .lpf(400), round sub bass, simple 8th-note patterns",
+          "pads": "triangle oscillator chords with .room(0.7).lpf(2000), .jux(rev) for width, jazzy voicings",
+          "drums": "s('bd') four-on-floor, s('hh') offbeats with low .gain(0.4), muted s('cp') on 2 and 4, s('rim') for ghost notes",
+          "effects": ".room(0.5) on everything for warmth, .lpf(3000) on master for lo-fi warmth, subtle .delay()"
+        }
+      },
+      {
+        "name": "Tech House",
+        "bpm": {
+          "min": 124,
+          "max": 130
+        },
+        "characteristic_elements": [
+          "driving groove",
+          "minimal melodic content",
+          "prominent percussion loops",
+          "subtle acid elements",
+          "vocal one-shots",
+          "rolling basslines"
+        ],
+        "strudel_approach": {
+          "lead": "minimal \u2014 short stabs with square oscillator, .lpf(1500).delay(0.25)",
+          "bass": "sawtooth with .lpf(800) and perlin modulation, syncopated 16th-note groove",
+          "pads": "sparse or absent \u2014 use filtered noise textures with .room(0.3) if needed",
+          "drums": "s('bd') four-on-floor with punch, layered s('hh') patterns (open and closed), s('cp') on 2 and 4, s('rim') ghost notes, heavy percussion focus",
+          "effects": "perlin on .hpf() for percussion variation, .delay(0.25) on percussion for groove, .jux(rev) on hi-hats"
+        }
+      },
+      {
+        "name": "Progressive House",
+        "bpm": {
+          "min": 124,
+          "max": 130
+        },
+        "characteristic_elements": [
+          "long arrangements",
+          "gradual builds",
+          "plucked synth melodies",
+          "evolving textures",
+          "emotional chord progressions",
+          "layered transitions"
+        ],
+        "strudel_approach": {
+          "lead": "sawtooth with .lpf() sweep building over bars, plucky short envelope, .delay(0.375) for dotted eighth",
+          "bass": "sawtooth with .lpf(600), steady driving pattern, gradual filter opening via perlin",
+          "pads": "sawtooth chords with .room(0.8).lpf() slowly opening, .jux(rev) for massive width",
+          "drums": "s('bd') four-on-floor, gradual percussion introduction, s('hh') building from 8ths to 16ths",
+          "effects": "everything should evolve \u2014 use perlin on .lpf() with long cycle times, .room() increasing during builds"
+        }
+      },
+      {
+        "name": "Acid House",
+        "bpm": {
+          "min": 120,
+          "max": 130
+        },
+        "characteristic_elements": [
+          "TB-303 acid basslines",
+          "squelchy resonant filters",
+          "TR-808/TR-909 drum patterns",
+          "raw unpolished sound",
+          "repetitive hypnotic grooves"
+        ],
+        "strudel_approach": {
+          "lead": "sawtooth with .lpq(20) and fast perlin .lpf() sweep for acid squelch",
+          "bass": "sawtooth or square with .lpf() envelope per note, .lpq(15-25), .distort(0.2), sliding note patterns",
+          "pads": "minimal or none \u2014 acid line carries the track",
+          "drums": "s('bd:3') for 909 kick, s('sd:3') on 2 and 4, s('hh:3') offbeats, s('oh:3') for open hats",
+          "effects": "perlin .lpf() absolutely essential, .lpq() cranked high, .distort() for grit, .jux(rev) optional"
+        }
+      }
+    ],
+    "strudel_approach": {
+      "lead": "sawtooth or triangle with .vowel() modulation for chord stabs",
+      "bass": "sine or sawtooth with .lpf() for warmth",
+      "pads": "triangle with .room(0.6), smooth chords",
+      "drums": "s('bd') four-on-floor, s('hh') offbeats, s('cp') on 2 and 4",
+      "effects": ".room() for space, .delay() for groove, .lpf() for warmth"
+    }
+  },
+  {
+    "name": "Techno",
+    "bpm": {
+      "min": 120,
+      "max": 150
+    },
+    "common_keys": [
+      "A minor",
+      "D minor",
+      "E minor",
+      "C minor",
+      "F minor"
+    ],
+    "characteristic_elements": [
+      "four-on-the-floor kick",
+      "mechanical repetition",
+      "industrial textures",
+      "sparse arrangements",
+      "hypnotic loops",
+      "emphasis on rhythm over melody"
+    ],
+    "sub_genres": [
+      {
+        "name": "Minimal Techno",
+        "bpm": {
+          "min": 120,
+          "max": 132
+        },
+        "characteristic_elements": [
+          "stripped-back arrangements",
+          "micro-variations in loops",
+          "subtle percussion changes",
+          "click and glitch sounds",
+          "deep sub bass",
+          "extreme repetition with tiny variations"
+        ],
+        "strudel_approach": {
+          "lead": "sine with very sparse notes, .delay(0.5).room(0.3), clicks from short square bursts",
+          "bass": "sine sub bass, simple pattern with occasional note variation, .lpf(200)",
+          "pads": "none or barely perceptible \u2014 filtered noise with .room(0.4) at very low .gain()",
+          "drums": "s('bd') four-on-floor, minimal s('hh') with micro-timing variations via .nudge(), s('rim') clicks, avoid claps",
+          "effects": "perlin on .lpf() with very subtle range for micro-variation, .delay(0.25) at low mix for depth"
+        }
+      },
+      {
+        "name": "Industrial Techno",
+        "bpm": {
+          "min": 130,
+          "max": 150
+        },
+        "characteristic_elements": [
+          "distorted kicks",
+          "metallic percussion",
+          "aggressive textures",
+          "noise layers",
+          "pounding relentless rhythm",
+          "dark atmosphere"
+        ],
+        "strudel_approach": {
+          "lead": "square oscillator with .distort(0.6), harsh metallic tones, .hpf(2000) for industrial bite",
+          "bass": "sawtooth with .distort(0.4).lpf(300), aggressive and distorted, driving 8th-note pattern",
+          "pads": "noise-based textures with .room(0.5).hpf(1000), dark and oppressive",
+          "drums": "s('bd') with .distort(0.3) for punch, metallic s('hh') patterns, s('cp') with .distort(), industrial s('perc') hits",
+          "effects": ".distort() on everything, .jux(rev) for disorientation, .hpf() sweeps with perlin for aggression"
+        }
+      },
+      {
+        "name": "Melodic Techno",
+        "bpm": {
+          "min": 120,
+          "max": 128
+        },
+        "characteristic_elements": [
+          "emotional synth melodies",
+          "deep rolling basslines",
+          "lush pads and textures",
+          "breakdowns with melodic focus",
+          "driving but musical groove"
+        ],
+        "strudel_approach": {
+          "lead": "sawtooth with .lpf(3000).room(0.6).delay(0.375), emotive minor-key melodies, .jux(rev) for width",
+          "bass": "sawtooth with .lpf(600), rolling 16th-note pattern with perlin filter movement",
+          "pads": "stacked sawtooth with .room(0.9).lpf(2500), slow evolving chords, .jux(rev)",
+          "drums": "s('bd') four-on-floor, s('hh') 16ths with swing, s('cp') on 2 and 4, layered percussion",
+          "effects": ".room(0.6) for atmosphere, .delay(0.375) for melodic echoes, perlin .lpf() for evolution"
+        }
+      },
+      {
+        "name": "Acid Techno",
+        "bpm": {
+          "min": 130,
+          "max": 145
+        },
+        "characteristic_elements": [
+          "TB-303 acid lines",
+          "harder edge than acid house",
+          "relentless energy",
+          "distorted acid squelch",
+          "fast resonant filter sweeps"
+        ],
+        "strudel_approach": {
+          "lead": "sawtooth with .lpq(25).distort(0.3), aggressive acid patterns, fast perlin .lpf() modulation",
+          "bass": "sawtooth with .lpq(20).lpf() perlin sweep, .distort(0.4), driving 16th-note patterns with pitch slides",
+          "pads": "none \u2014 raw and stripped back",
+          "drums": "s('bd') hard four-on-floor, s('hh') 16ths, s('cp') on 2 and 4 with .room(0.2), relentless",
+          "effects": ".distort() for edge, extreme .lpq() for acid, perlin .lpf() essential, .jux(rev) on acid line"
+        }
+      }
+    ],
+    "strudel_approach": {
+      "lead": "sawtooth or square with .lpf() modulation",
+      "bass": "sawtooth with .lpf(500) and .distort() for grit",
+      "pads": "minimal \u2014 filtered noise or dark sine drones",
+      "drums": "s('bd') punchy four-on-floor, s('hh') 16ths, sparse percussion",
+      "effects": ".distort() for industrial edge, perlin .lpf() for hypnotic movement"
+    }
+  },
+  {
+    "name": "Drum and Bass",
+    "bpm": {
+      "min": 160,
+      "max": 180
+    },
+    "common_keys": [
+      "E minor",
+      "A minor",
+      "D minor",
+      "G minor",
+      "B minor"
+    ],
+    "characteristic_elements": [
+      "breakbeat patterns at high tempo",
+      "heavy sub bass",
+      "syncopated drum patterns",
+      "amen break variations",
+      "reese bass",
+      "half-time bass with double-time drums"
+    ],
+    "sub_genres": [
+      {
+        "name": "Jungle",
+        "bpm": {
+          "min": 160,
+          "max": 175
+        },
+        "characteristic_elements": [
+          "chopped breakbeats (amen, think, apache)",
+          "heavy reggae-influenced sub bass",
+          "timestretched vocal samples",
+          "ragga/dancehall influences",
+          "complex break editing"
+        ],
+        "strudel_approach": {
+          "lead": "sparse \u2014 vocal chops or sine stabs with .delay(0.375).room(0.4)",
+          "bass": "sine sub bass with occasional pitch bend, half-time pattern against double-time breaks, .lpf(200)",
+          "pads": "minimal dub chords with .room(0.8).delay(0.5), reggae influence",
+          "drums": "s('break') chopped patterns, or construct from s('bd') s('sd') s('hh') in syncopated breakbeat pattern at 170bpm, .speed() variations for timestretching",
+          "effects": ".delay(0.375) for dub echoes, .room(0.6) on snares, .speed() on break chops for jungle texture"
+        }
+      },
+      {
+        "name": "Liquid DnB",
+        "bpm": {
+          "min": 170,
+          "max": 176
+        },
+        "characteristic_elements": [
+          "smooth rolling basslines",
+          "jazzy or soulful chords",
+          "female vocal samples",
+          "warm atmospheric pads",
+          "two-step drum pattern"
+        ],
+        "strudel_approach": {
+          "lead": "triangle or sine with .room(0.5).delay(0.33), smooth melodic lines",
+          "bass": "sawtooth with .lpf(800), rolling 8th-note pattern with pitch variation, reese-style with detuned sawtooths",
+          "pads": "triangle chords with .room(0.8).jux(rev), warm and lush, jazzy voicings (7ths, 9ths)",
+          "drums": "s('bd') on 1 and the 'and' of 2, s('sd') on 2 and 4 (classic two-step), fast s('hh') 16ths with ghost notes",
+          "effects": ".room(0.5) for warmth, .delay(0.33) for groove, .jux(rev) on pads for width"
+        }
+      },
+      {
+        "name": "Neurofunk",
+        "bpm": {
+          "min": 172,
+          "max": 178
+        },
+        "characteristic_elements": [
+          "aggressive modulated basslines",
+          "complex sound design",
+          "minimal melodic content",
+          "tight precise drums",
+          "heavy use of resampling and processing"
+        ],
+        "strudel_approach": {
+          "lead": "square with .distort(0.4).hpf(2000), aggressive stabs",
+          "bass": "sawtooth with fast perlin .lpf() and .hpf() sweeps, .distort(0.5), .vowel() modulation for 'talking bass' effect, aggressive reese",
+          "pads": "none or dark noise textures",
+          "drums": "tight s('bd') and s('sd') two-step pattern, crisp s('hh') with precise programming, layered snare hits",
+          "effects": ".distort() and .vowel() on bass essential, fast perlin modulation on everything, .jux(rev) for spatial complexity"
+        }
+      }
+    ],
+    "strudel_approach": {
+      "lead": "varies by sub-genre \u2014 from sine to aggressive sawtooth",
+      "bass": "sine sub with sawtooth reese layer, .lpf() modulated",
+      "pads": "triangle or sawtooth with .room(0.7)",
+      "drums": "two-step pattern: kick on 1 and 'and of 2', snare on 2 and 4, fast hi-hats",
+      "effects": ".room() on snares, .delay() for dub influence, perlin .lpf() on bass"
+    }
+  },
+  {
+    "name": "Ambient",
+    "bpm": {
+      "min": 60,
+      "max": 120
+    },
+    "common_keys": [
+      "C major",
+      "D major",
+      "A minor",
+      "E minor",
+      "F major",
+      "G major"
+    ],
+    "characteristic_elements": [
+      "long sustained tones",
+      "heavy reverb",
+      "no prominent beat or very sparse rhythm",
+      "evolving textures",
+      "field recordings",
+      "slow harmonic movement"
+    ],
+    "sub_genres": [
+      {
+        "name": "Downtempo",
+        "bpm": {
+          "min": 80,
+          "max": 110
+        },
+        "characteristic_elements": [
+          "relaxed groove",
+          "world music influences",
+          "organic textures",
+          "gentle beats",
+          "warm bass",
+          "atmospheric production"
+        ],
+        "strudel_approach": {
+          "lead": "sine or triangle with .room(0.8).delay(0.5), gentle ethnic-inspired melodies",
+          "bass": "sine with .lpf(300), warm and round, simple patterns",
+          "pads": "sawtooth with heavy .room(0.9).lpf(1500).jux(rev), slow evolving chords",
+          "drums": "s('bd') sparse pattern, s('hh') with .room(0.3), brush-like percussion, world percussion samples",
+          "effects": ".room(0.8) on everything, .delay(0.5) for space, perlin .lpf() with very slow modulation"
+        }
+      },
+      {
+        "name": "Chillout",
+        "bpm": {
+          "min": 90,
+          "max": 120
+        },
+        "characteristic_elements": [
+          "light beats",
+          "dreamy pads",
+          "positive atmosphere",
+          "clean production",
+          "soft vocals or vocal pads",
+          "gentle melodic hooks"
+        ],
+        "strudel_approach": {
+          "lead": "triangle with .room(0.6).delay(0.375), pleasant melodies, .jux(rev) for shimmer",
+          "bass": "sine or triangle with .lpf(400), gentle supportive role",
+          "pads": "sawtooth or triangle with .room(0.8).lpf(3000), warm and inviting, .jux(rev)",
+          "drums": "s('bd') soft four-on-floor or breakbeat, s('hh') gentle, s('cp') with .room(0.5)",
+          "effects": ".room(0.7) for dreaminess, .delay(0.5) for depth, .lpf(4000) on master for warmth"
+        }
+      },
+      {
+        "name": "Dark Ambient",
+        "bpm": {
+          "min": 60,
+          "max": 90
+        },
+        "characteristic_elements": [
+          "drone-based textures",
+          "ominous atmosphere",
+          "dissonant harmonics",
+          "sparse or no rhythm",
+          "industrial noise elements",
+          "cavernous reverb"
+        ],
+        "strudel_approach": {
+          "lead": "sine drones with slow pitch drift via perlin, .room(0.95), dissonant intervals",
+          "bass": "sine with very low frequency, sub-rumble, .room(0.8)",
+          "pads": "sawtooth with .lpf(500).room(0.95).distort(0.1), dark and oppressive, .jux(rev) for vastness",
+          "drums": "none or very sparse metallic hits with .room(0.9), industrial textures",
+          "effects": ".room(0.95) essential, .delay(0.7) with feedback, perlin on .lpf() for slow textural evolution, .distort(0.1) for grit"
+        }
+      }
+    ],
+    "strudel_approach": {
+      "lead": "sine or triangle with heavy .room(0.9) and .delay(0.5)",
+      "bass": "sine sub drone, barely perceptible",
+      "pads": "sawtooth with .lpf() filtered low, .room(0.95).jux(rev) for vast soundscape",
+      "drums": "sparse or absent \u2014 if present, very soft and processed",
+      "effects": ".room(0.9+) essential, .delay() for echoing space, perlin on everything for slow evolution"
+    }
+  },
+  {
+    "name": "Breakbeat",
+    "bpm": {
+      "min": 120,
+      "max": 145
+    },
+    "common_keys": [
+      "E minor",
+      "A minor",
+      "D minor",
+      "G minor"
+    ],
+    "characteristic_elements": [
+      "broken beat patterns (not four-on-floor)",
+      "syncopated kick and snare",
+      "sampled breakbeats",
+      "funk-influenced grooves",
+      "heavy bass"
+    ],
+    "sub_genres": [
+      {
+        "name": "Big Beat",
+        "bpm": {
+          "min": 120,
+          "max": 140
+        },
+        "characteristic_elements": [
+          "huge distorted breakbeats",
+          "rock guitar samples",
+          "massive basslines",
+          "anthemic and aggressive energy",
+          "stadium-sized production",
+          "hip-hop and rock fusion"
+        ],
+        "strudel_approach": {
+          "lead": "sawtooth with .distort(0.4), aggressive riffs, .room(0.4)",
+          "bass": "sawtooth with .distort(0.3).lpf(600), huge and distorted, simple driving patterns",
+          "pads": "power-chord style stabs with sawtooth, .distort(0.3).room(0.4)",
+          "drums": "s('break') with .distort(0.2) for huge breakbeats, or s('bd') s('sd') in breakbeat pattern, heavy and punchy",
+          "effects": ".distort() on drums and bass for size, .room(0.4) for space, .jux(rev) for width"
+        }
+      },
+      {
+        "name": "Progressive Breaks",
+        "bpm": {
+          "min": 125,
+          "max": 135
+        },
+        "characteristic_elements": [
+          "evolving breakbeat patterns",
+          "trance-like builds and breakdowns",
+          "melodic elements",
+          "filtered synth work",
+          "long arrangement arcs"
+        ],
+        "strudel_approach": {
+          "lead": "sawtooth with .lpf() sweep via perlin, .delay(0.375).room(0.5)",
+          "bass": "sawtooth with .lpf(700), rolling pattern, gradual filter opening",
+          "pads": "sawtooth chords with .room(0.7).jux(rev), evolving over long periods",
+          "drums": "breakbeat pattern with s('bd') s('sd') syncopation, build from sparse to full, .room(0.3) on snare",
+          "effects": "perlin .lpf() for progressive evolution, .room() increasing during builds, .delay(0.375) on melodic elements"
+        }
+      },
+      {
+        "name": "Nu Skool Breaks",
+        "bpm": {
+          "min": 130,
+          "max": 142
+        },
+        "characteristic_elements": [
+          "tight syncopated breaks",
+          "bass-heavy",
+          "influenced by techno and DnB",
+          "dark and driving",
+          "minimal melodic content"
+        ],
+        "strudel_approach": {
+          "lead": "square stabs with .lpf(2000).delay(0.25), minimal and functional",
+          "bass": "sawtooth with .lpf(500).distort(0.2), driving and heavy",
+          "pads": "sparse dark textures, .room(0.4)",
+          "drums": "tight programmed breaks, s('bd') syncopated, s('sd') offbeat patterns, s('hh') 16ths",
+          "effects": ".distort(0.2) for edge, .delay(0.25) for rhythmic interest, .jux(rev) on percussion"
+        }
+      }
+    ],
+    "strudel_approach": {
+      "lead": "sawtooth with moderate .lpf() and .delay()",
+      "bass": "sawtooth with .lpf(600), heavy and driving",
+      "pads": "optional \u2014 sawtooth chords with .room(0.5)",
+      "drums": "syncopated breakbeat: kick not on every beat, snare offbeat, sampled breaks",
+      "effects": ".distort() for energy, .room() for space, .delay() for groove"
+    }
+  },
+  {
+    "name": "UK Garage",
+    "bpm": {
+      "min": 130,
+      "max": 140
+    },
+    "common_keys": [
+      "C minor",
+      "G minor",
+      "D minor",
+      "Eb major",
+      "Ab major",
+      "Bb minor"
+    ],
+    "characteristic_elements": [
+      "shuffled/swung beats",
+      "2-step rhythm",
+      "pitched-up vocal samples",
+      "warm sub bass",
+      "skippy hi-hat patterns",
+      "R&B and soul influences"
+    ],
+    "sub_genres": [
+      {
+        "name": "2-Step Garage",
+        "bpm": {
+          "min": 130,
+          "max": 138
+        },
+        "characteristic_elements": [
+          "signature 2-step kick pattern (kick on 1, skip beat 2, kick on 'and' of 2)",
+          "shuffled hi-hats",
+          "warm organ or piano chords",
+          "pitched female vocals",
+          "tight sub bass",
+          "skippy syncopated groove"
+        ],
+        "strudel_approach": {
+          "lead": "sine or triangle organ-style chords with .room(0.4), R&B voicings",
+          "bass": "sine sub with .lpf(200), following the skippy 2-step rhythm, tight and controlled",
+          "pads": "triangle with .room(0.6).lpf(2000), warm R&B chords, .jux(rev)",
+          "drums": "s('bd') on 1 and 'and' of 2 (skip the 2), s('sd') or s('cp') on 2 and 4, shuffled s('hh') with swing, s('rim') ghost notes",
+          "effects": ".room(0.3) for tightness, shuffle/swing on hi-hats essential, .delay(0.25) subtle on vocals/chords"
+        }
+      },
+      {
+        "name": "Speed Garage",
+        "bpm": {
+          "min": 132,
+          "max": 140
+        },
+        "characteristic_elements": [
+          "warping bass sound",
+          "time-stretched vocal stabs",
+          "organ stabs",
+          "harder edge than 2-step",
+          "influenced by jungle and house"
+        ],
+        "strudel_approach": {
+          "lead": "square organ stabs with .room(0.3), punchy and rhythmic",
+          "bass": "sawtooth with .lpf(400) and wobble via perlin modulation, warping character, .distort(0.15)",
+          "pads": "minimal \u2014 short chord stabs preferred over sustained pads",
+          "drums": "s('bd') driving pattern, s('sd') with .room(0.2), shuffled s('hh'), more aggressive than 2-step",
+          "effects": "perlin on bass .lpf() for warping effect, .distort(0.15) on bass, .room(0.3) overall"
+        }
+      },
+      {
+        "name": "Bassline / UK Bass",
+        "bpm": {
+          "min": 130,
+          "max": 140
+        },
+        "characteristic_elements": [
+          "heavy wobble bass",
+          "garage-influenced beats",
+          "dark and bass-heavy",
+          "minimal melodic content",
+          "evolved from speed garage"
+        ],
+        "strudel_approach": {
+          "lead": "minimal \u2014 short stabs or vocal chops",
+          "bass": "sawtooth with .lpf() wobble via perlin at medium speed, .distort(0.3), .vowel() modulation for movement, dominant element",
+          "pads": "none or very sparse dark textures",
+          "drums": "2-step influenced but harder, s('bd') punchy, s('sd') snappy, s('hh') shuffled",
+          "effects": ".distort() on bass, fast perlin .lpf() for wobble, .vowel() cycling for bass character"
+        }
+      }
+    ],
+    "strudel_approach": {
+      "lead": "sine or triangle organ chords with .room(0.4)",
+      "bass": "sine sub bass, tight and controlled",
+      "pads": "triangle with .room(0.5), warm chords",
+      "drums": "2-step pattern with swing, skippy hi-hats",
+      "effects": "swing/shuffle essential, .room(0.3) for tightness, keep production clean"
+    }
+  },
+  {
+    "name": "Synthwave",
+    "bpm": {
+      "min": 80,
+      "max": 118
+    },
+    "common_keys": [
+      "A minor",
+      "E minor",
+      "F minor",
+      "C minor",
+      "D minor"
+    ],
+    "characteristic_elements": [
+      "80s-inspired synthesizers",
+      "arpeggiated sequences",
+      "gated reverb drums",
+      "analog-style pads",
+      "retro-futuristic aesthetic",
+      "prominent bass sequences"
+    ],
+    "sub_genres": [
+      {
+        "name": "Retrowave",
+        "bpm": {
+          "min": 95,
+          "max": 118
+        },
+        "characteristic_elements": [
+          "driving arpeggiated basslines",
+          "bright sawtooth leads",
+          "80s drum machine sounds",
+          "power synth chords",
+          "nostalgic atmosphere",
+          "Depeche Mode / New Order influence"
+        ],
+        "strudel_approach": {
+          "lead": "sawtooth with .lpf(4000).room(0.5).delay(0.33), bright 80s-style melodies, .jux(rev) for chorus-like width",
+          "bass": "sawtooth or square with .lpf(1200), arpeggiated 8th or 16th-note sequence, driving and prominent",
+          "pads": "sawtooth chords with .room(0.6).delay(0.25), lush and warm, power chords",
+          "drums": "s('bd') four-on-floor, s('sd') with .room(0.6) for gated reverb effect, s('hh') 8ths or 16ths, electronic toms",
+          "effects": ".room(0.6) on snare for gated reverb, .delay(0.33) on leads, .jux(rev) for 80s chorus width"
+        }
+      },
+      {
+        "name": "Darksynth",
+        "bpm": {
+          "min": 80,
+          "max": 110
+        },
+        "characteristic_elements": [
+          "aggressive distorted synths",
+          "horror movie atmosphere",
+          "heavy industrial influence",
+          "distorted bass",
+          "cinematic tension",
+          "Carpenter Brut / Perturbator style"
+        ],
+        "strudel_approach": {
+          "lead": "sawtooth with .distort(0.5).lpf(3000), aggressive and dark, .room(0.4)",
+          "bass": "sawtooth with .distort(0.4).lpf(800), heavy and grinding, driving patterns",
+          "pads": "sawtooth with .distort(0.2).room(0.6).lpf(1500), ominous atmosphere",
+          "drums": "s('bd') punchy, s('sd') with .distort(0.2), aggressive electronic drums",
+          "effects": ".distort() on everything for aggression, .room(0.5) for cinematic space, darker .lpf() settings overall"
+        }
+      },
+      {
+        "name": "Chillwave / Dreamwave",
+        "bpm": {
+          "min": 80,
+          "max": 100
+        },
+        "characteristic_elements": [
+          "hazy lo-fi production",
+          "washed-out reverb",
+          "soft arpeggios",
+          "dreamy atmosphere",
+          "warm nostalgic feeling"
+        ],
+        "strudel_approach": {
+          "lead": "triangle with .room(0.8).delay(0.5).lpf(2000), soft and dreamy, .jux(rev)",
+          "bass": "sine or triangle with .lpf(400), gentle and warm",
+          "pads": "sawtooth with .room(0.9).lpf(1500).jux(rev), washed out and hazy",
+          "drums": "soft s('bd'), s('sd') with heavy .room(0.7), lo-fi s('hh'), muted and distant",
+          "effects": ".room(0.8+) for wash, .lpf(2000-3000) on master for lo-fi haze, .delay(0.5) for depth, .jux(rev) everywhere"
+        }
+      }
+    ],
+    "strudel_approach": {
+      "lead": "sawtooth with .lpf(4000) for bright 80s tone, .delay(0.33)",
+      "bass": "sawtooth or square, arpeggiated, .lpf(1200)",
+      "pads": "sawtooth chords with .room(0.6).jux(rev) for width",
+      "drums": "electronic 80s kit, gated reverb on snare with .room(0.6)",
+      "effects": ".room() for gated reverb character, .delay() for 80s echoes, .jux(rev) for stereo chorus"
+    }
+  },
+  {
+    "name": "Lo-fi / Beats",
+    "bpm": {
+      "min": 60,
+      "max": 95
+    },
+    "common_keys": [
+      "C major",
+      "F major",
+      "Bb major",
+      "Eb major",
+      "D minor",
+      "G minor",
+      "A minor"
+    ],
+    "characteristic_elements": [
+      "dusty vinyl texture",
+      "jazz-sampled chords",
+      "mellow hip-hop beats",
+      "swing and groove",
+      "warm saturation",
+      "tape wobble",
+      "ambient noise layers"
+    ],
+    "sub_genres": [
+      {
+        "name": "Lo-fi Hip Hop",
+        "bpm": {
+          "min": 70,
+          "max": 90
+        },
+        "characteristic_elements": [
+          "boom-bap influenced drums",
+          "jazzy piano or Rhodes chords (7ths, 9ths, 13ths)",
+          "vinyl crackle",
+          "side-chained pads",
+          "mellow bass",
+          "swing on drums"
+        ],
+        "strudel_approach": {
+          "lead": "sine or triangle with .room(0.4).lpf(2000), gentle jazz-influenced melodies",
+          "bass": "sine with .lpf(300), warm round boom-bap bass, simple patterns",
+          "pads": "triangle chords with .lpf(1500).room(0.5), jazz voicings (maj7, min9, dom13), .jux(rev) for warmth",
+          "drums": "s('bd') boom-bap pattern with swing, s('sd') on 2 and 4 with lo-fi character, s('hh') shuffled, ghost s('rim') notes",
+          "effects": ".lpf(3000) on master for tape warmth, .room(0.4) gentle, swing/shuffle on drums essential, .delay(0.25) subtle"
+        }
+      },
+      {
+        "name": "Chillhop",
+        "bpm": {
+          "min": 75,
+          "max": 95
+        },
+        "characteristic_elements": [
+          "slightly more upbeat than lo-fi hip hop",
+          "live instrument feel",
+          "funk and soul influences",
+          "clean but warm production",
+          "melodic bass lines"
+        ],
+        "strudel_approach": {
+          "lead": "triangle with .room(0.5).delay(0.25), funky melodic phrases, slightly brighter than lo-fi",
+          "bass": "sine or triangle with .lpf(500), melodic walking bass patterns, funk-influenced",
+          "pads": "triangle with .room(0.5).lpf(2500), soul chord progressions",
+          "drums": "s('bd') with swing, s('sd') crisp, s('hh') open and closed pattern, more dynamic than lo-fi hip hop",
+          "effects": ".room(0.4) for warmth, .lpf(4000) for slight warmth, .delay(0.25) on melodic elements"
+        }
+      },
+      {
+        "name": "Jazzhop",
+        "bpm": {
+          "min": 70,
+          "max": 85
+        },
+        "characteristic_elements": [
+          "heavy jazz influence",
+          "complex chord voicings",
+          "saxophone or flute samples",
+          "walking bass",
+          "brush-style drums",
+          "sophisticated harmony"
+        ],
+        "strudel_approach": {
+          "lead": "sine with .room(0.5).delay(0.33), jazz-style phrasing, chromatic runs",
+          "bass": "sine with .lpf(400), walking bass patterns, jazz intervals (chromatic approach notes)",
+          "pads": "triangle chords with complex jazz voicings (min11, dom7#9, maj9), .room(0.5).jux(rev)",
+          "drums": "s('bd') sparse jazz pattern, s('sd') with brush character (low .gain()), s('hh') ride-pattern with swing, s('rim') ghost notes",
+          "effects": ".room(0.5) for jazz club ambience, heavy swing on all rhythmic elements, .lpf(3000) for vinyl warmth"
+        }
+      }
+    ],
+    "strudel_approach": {
+      "lead": "sine or triangle with .lpf(2000) for warmth",
+      "bass": "sine, round and warm, .lpf(300)",
+      "pads": "triangle with jazz chords, .room(0.5).lpf(2000)",
+      "drums": "boom-bap patterns with swing, lo-fi processed, muted",
+      "effects": ".lpf(3000) on master for tape warmth, swing essential, .room(0.4) for intimate space"
+    }
+  },
+  {
+    "name": "Disco",
+    "bpm": {
+      "min": 110,
+      "max": 135
+    },
+    "common_keys": [
+      "C minor",
+      "G minor",
+      "D minor",
+      "F major",
+      "Bb major",
+      "Eb major"
+    ],
+    "characteristic_elements": [
+      "four-on-the-floor kick",
+      "open hi-hat on every offbeat",
+      "funky basslines (often octave-jumping)",
+      "lush string arrangements",
+      "rhythm guitar",
+      "handclaps",
+      "orchestral stabs"
+    ],
+    "sub_genres": [
+      {
+        "name": "Classic Disco",
+        "bpm": {
+          "min": 110,
+          "max": 130
+        },
+        "characteristic_elements": [
+          "live instrumentation feel",
+          "string sections",
+          "funky bass guitar lines",
+          "wah-wah guitar",
+          "four-on-the-floor kick",
+          "open hi-hats on offbeats",
+          "horn stabs"
+        ],
+        "strudel_approach": {
+          "lead": "sawtooth with .lpf(3000).room(0.4), string-like ensemble, .jux(rev) for width",
+          "bass": "sawtooth or square with .lpf(1500), octave-jumping funky patterns, syncopated groove",
+          "pads": "sawtooth string chords with .room(0.5).lpf(3000).jux(rev), lush and warm",
+          "drums": "s('bd') four-on-floor, s('oh') on every offbeat (essential), s('cp') on 2 and 4, s('hh') 16ths",
+          "effects": ".room(0.4) for live room sound, .delay(0.25) subtle, .jux(rev) on strings for orchestral width"
+        }
+      },
+      {
+        "name": "Nu-Disco",
+        "bpm": {
+          "min": 115,
+          "max": 128
+        },
+        "characteristic_elements": [
+          "modern electronic production with disco elements",
+          "filtered house influence",
+          "synthesizer-heavy",
+          "retro-modern hybrid aesthetic",
+          "side-chain compression pumping",
+          "funky synth basslines"
+        ],
+        "strudel_approach": {
+          "lead": "sawtooth with .lpf(2500).room(0.4).delay(0.25), funky synth riffs",
+          "bass": "sawtooth with .lpf(1200), funky synth bass (not acoustic), .gain() modulated for sidechain pump effect",
+          "pads": "sawtooth filtered chords with perlin .lpf() sweep, .room(0.5).jux(rev), filtered disco stabs",
+          "drums": "s('bd') four-on-floor, s('oh') offbeats, s('cp') on 2 and 4, modern electronic drum sounds",
+          "effects": "perlin .lpf() for filter-house sweeps, .gain() automation for sidechain pumping, .room(0.4), .jux(rev) on chords"
+        }
+      },
+      {
+        "name": "Space Disco / Italo Disco",
+        "bpm": {
+          "min": 118,
+          "max": 135
+        },
+        "characteristic_elements": [
+          "electronic synthesizer-led",
+          "arpeggiated sequences",
+          "vocoder vocals",
+          "cosmic/space themes",
+          "drum machine beats",
+          "European electronic production"
+        ],
+        "strudel_approach": {
+          "lead": "sawtooth with .lpf(4000).delay(0.33).room(0.5), arpeggiated cosmic sequences, .jux(rev)",
+          "bass": "square or sawtooth with .lpf(1000), electronic sequenced bass, driving 8th notes",
+          "pads": "sawtooth with .room(0.7).lpf(2000), spacey evolving chords, .vowel() for vocoder-like effect",
+          "drums": "electronic drum machine: s('bd') four-on-floor, s('sd') or s('cp') on 2 and 4, s('hh') 16ths, s('oh') offbeats",
+          "effects": ".delay(0.33) for cosmic echoes, .room(0.6) for space, .vowel() for vocoder character, .jux(rev) for width"
+        }
+      }
+    ],
+    "strudel_approach": {
+      "lead": "sawtooth strings or horns with .room(0.4)",
+      "bass": "sawtooth or square, funky octave patterns, .lpf(1500)",
+      "pads": "sawtooth string chords with .room(0.5).jux(rev)",
+      "drums": "s('bd') four-on-floor, s('oh') on EVERY offbeat (defining element), s('cp') on 2 and 4",
+      "effects": ".room(0.4) for live feel, .jux(rev) for width, .delay(0.25) subtle"
+    }
+  },
+  {
+    "name": "Dubstep",
+    "bpm": {
+      "min": 138,
+      "max": 142
+    },
+    "common_keys": [
+      "D minor",
+      "E minor",
+      "F minor",
+      "G minor",
+      "A minor"
+    ],
+    "characteristic_elements": [
+      "half-time drum pattern at ~140bpm",
+      "heavy wobble bass",
+      "sub bass emphasis",
+      "sparse arrangement",
+      "dub-influenced space",
+      "snare on beat 3 (half-time feel)"
+    ],
+    "sub_genres": [
+      {
+        "name": "Brostep",
+        "bpm": {
+          "min": 140,
+          "max": 150
+        },
+        "characteristic_elements": [
+          "aggressive mid-range bass",
+          "complex sound design drops",
+          "extreme wobble and growl bass",
+          "heavy distortion",
+          "dramatic builds and drops",
+          "Skrillex-influenced"
+        ],
+        "strudel_approach": {
+          "lead": "sawtooth with .distort(0.5).vowel() cycling, aggressive FM-like tones",
+          "bass": "sawtooth with .distort(0.6).vowel() rapid cycling ('a','e','i','o','u'), .lpf() with fast perlin, extreme processing",
+          "pads": "none during drops \u2014 used only in intros/breakdowns with .room(0.7)",
+          "drums": "s('bd') on 1 and 3, s('sd') on 3 (half-time), s('hh') sparse, massive fills before drops",
+          "effects": ".distort(0.5+) essential, .vowel() for growl bass, fast perlin on .lpf() for wobble, .jux(rev) for width"
+        }
+      },
+      {
+        "name": "Deep Dubstep",
+        "bpm": {
+          "min": 138,
+          "max": 142
+        },
+        "characteristic_elements": [
+          "deep sub bass focus",
+          "minimal and spacious",
+          "dub influences (reverb, delay)",
+          "dark atmosphere",
+          "sound system music",
+          "Mala / Digital Mystikz style"
+        ],
+        "strudel_approach": {
+          "lead": "sine sparse melodic fragments with .room(0.6).delay(0.5), dub echoes",
+          "bass": "sine sub bass, very heavy and deep, .lpf(150), simple powerful patterns, occasional pitch wobble",
+          "pads": "dark drones with .room(0.8).lpf(500), cavernous and minimal",
+          "drums": "s('bd') on 1 and 3, s('sd') with .room(0.5) on 3, sparse s('hh'), heavy .delay() on percussion for dub effect",
+          "effects": ".room(0.6) and .delay(0.5) for dub space, keep it minimal and deep, perlin on sub pitch for wobble"
+        }
+      }
+    ],
+    "strudel_approach": {
+      "lead": "sine or sawtooth sparse elements with .delay(0.5) for dub echoes",
+      "bass": "sine sub or sawtooth with .distort() for wobble, .vowel() for growl",
+      "pads": "dark and minimal with .room(0.7)",
+      "drums": "half-time: kick on 1 and 3, snare on 3, sparse hi-hats",
+      "effects": ".delay(0.5) for dub space, .distort() and .vowel() for bass design, .room(0.5)"
+    }
+  },
+  {
+    "name": "Electro",
+    "bpm": {
+      "min": 125,
+      "max": 145
+    },
+    "common_keys": [
+      "E minor",
+      "A minor",
+      "D minor",
+      "C minor"
+    ],
+    "characteristic_elements": [
+      "TR-808 drum patterns",
+      "robotic synth lines",
+      "vocoder vocals",
+      "funk-influenced basslines",
+      "mechanical groove",
+      "Kraftwerk lineage"
+    ],
+    "sub_genres": [
+      {
+        "name": "Electro (classic)",
+        "bpm": {
+          "min": 125,
+          "max": 135
+        },
+        "characteristic_elements": [
+          "808 kick and snare patterns",
+          "robotic feel",
+          "synth bass sequences",
+          "minimal arrangements",
+          "breakdance-era influence"
+        ],
+        "strudel_approach": {
+          "lead": "square or sawtooth with .lpf(2000), robotic sequences, .delay(0.25)",
+          "bass": "square with .lpf(800), sequenced patterns, mechanical and precise",
+          "pads": "minimal \u2014 square wave stabs with .room(0.3)",
+          "drums": "s('bd:3') 808 kick, s('sd:3') 808 snare, s('hh:3') crisp hats, s('cp') claps, robotic programming",
+          "effects": ".lpf() for classic analog filter sound, .delay(0.25) for robotic echoes, .vowel() for vocoder effect"
+        }
+      },
+      {
+        "name": "Electro House",
+        "bpm": {
+          "min": 126,
+          "max": 132
+        },
+        "characteristic_elements": [
+          "big room synth stabs",
+          "aggressive sawtooth leads",
+          "four-on-the-floor with electro flair",
+          "sidechain pumping",
+          "festival-oriented drops"
+        ],
+        "strudel_approach": {
+          "lead": "sawtooth with .distort(0.3).lpf(3000), big and aggressive, .jux(rev) for massive width",
+          "bass": "sawtooth with .distort(0.3).lpf(600), heavy pumping bassline, .gain() modulated for sidechain",
+          "pads": "sawtooth chords with .room(0.5), big room stabs",
+          "drums": "s('bd') punchy four-on-floor, s('cp') on 2 and 4, s('hh') 8ths, s('oh') offbeats",
+          "effects": ".distort(0.3) for aggression, .gain() modulation for sidechain pump, .jux(rev) for width, .room(0.4)"
+        }
+      }
+    ],
+    "strudel_approach": {
+      "lead": "square or sawtooth with .lpf() for robotic character",
+      "bass": "square with .lpf(800), precise sequenced patterns",
+      "pads": "minimal stabs",
+      "drums": "808-style patterns, mechanical programming",
+      "effects": ".vowel() for vocoder, .delay(0.25) for robotic echoes, .lpf() for analog filter"
+    }
+  },
+  {
+    "name": "Dub Techno",
+    "bpm": {
+      "min": 118,
+      "max": 132
+    },
+    "common_keys": [
+      "D minor",
+      "A minor",
+      "G minor",
+      "C minor"
+    ],
+    "characteristic_elements": [
+      "heavily delayed and reverbed chords",
+      "dubbed-out stabs",
+      "deep sub kick",
+      "hazy atmospheric textures",
+      "repetitive hypnotic grooves",
+      "Basic Channel / Chain Reaction influence"
+    ],
+    "sub_genres": [],
+    "strudel_approach": {
+      "lead": "sawtooth chord stabs with .room(0.8).delay(0.75), heavy feedback delay for dub character",
+      "bass": "sine sub kick pattern, deep and minimal, .lpf(150)",
+      "pads": "sawtooth with .room(0.9).delay(0.5).lpf(1500), hazy and washed out, .jux(rev) for depth",
+      "drums": "s('bd') deep four-on-floor, s('hh') with .delay(0.5).room(0.6) for dubby hats, s('rim') with .delay(0.75) and feedback",
+      "effects": ".delay(0.5-0.75) with high feedback is essential, .room(0.8+) for wash, perlin on .lpf() for slow hazy movement, .jux(rev) for stereo depth"
+    }
+  },
+  {
+    "name": "Hardstyle",
+    "bpm": {
+      "min": 150,
+      "max": 160
+    },
+    "common_keys": [
+      "D minor",
+      "E minor",
+      "A minor",
+      "F minor"
+    ],
+    "characteristic_elements": [
+      "reverse bass kick (pitched and distorted)",
+      "euphoric melodies",
+      "hard-hitting four-on-the-floor",
+      "detuned lead synths",
+      "anthemic breakdowns",
+      "screeching synths"
+    ],
+    "sub_genres": [
+      {
+        "name": "Euphoric Hardstyle",
+        "bpm": {
+          "min": 150,
+          "max": 155
+        },
+        "characteristic_elements": [
+          "uplifting melodies",
+          "supersaw leads",
+          "dramatic breakdowns",
+          "emotional chord progressions",
+          "pitched vocals"
+        ],
+        "strudel_approach": {
+          "lead": "sawtooth detuned with .vowel('a'), euphoric melodies, .room(0.5).delay(0.25), .jux(rev) for supersaw width",
+          "bass": "sawtooth with .distort(0.5), reverse-bass style with pitch envelope, aggressive",
+          "pads": "stacked sawtooths with .room(0.7).jux(rev), big emotional chords",
+          "drums": "s('bd') with .distort(0.4) on every beat (hardstyle kick is THE element), s('hh') 16ths, s('cp') with .room(0.3)",
+          "effects": ".distort(0.4+) on kick essential, .room(0.5) for anthemic space, .jux(rev) on leads for width"
+        }
+      },
+      {
+        "name": "Rawstyle",
+        "bpm": {
+          "min": 150,
+          "max": 160
+        },
+        "characteristic_elements": [
+          "raw distorted kicks",
+          "dark atmosphere",
+          "minimal melody",
+          "aggressive screeches",
+          "industrial influence"
+        ],
+        "strudel_approach": {
+          "lead": "sawtooth with .distort(0.6).hpf(1000), aggressive screeches, .lpq(15) for resonance",
+          "bass": "sawtooth with .distort(0.7), extremely distorted reverse-bass kick, raw and aggressive",
+          "pads": "dark noise textures with .room(0.5).lpf(800)",
+          "drums": "s('bd') with extreme .distort(0.6), raw punishing kick, s('hh') sparse, s('sd') industrial",
+          "effects": ".distort(0.5+) everywhere, .hpf() for screech character, .room(0.4) for dark space"
+        }
+      }
+    ],
+    "strudel_approach": {
+      "lead": "sawtooth with .vowel() for supersaws or .distort() for screeches",
+      "bass": "sawtooth with .distort(0.5+), pitched reverse-bass kick pattern",
+      "pads": "sawtooth stacks with .room(0.6).jux(rev)",
+      "drums": "distorted kick on every beat is the defining element",
+      "effects": ".distort() is essential for hardstyle character, .room(0.5) for anthemic space"
+    }
+  },
+  {
+    "name": "IDM / Experimental Electronic",
+    "bpm": {
+      "min": 80,
+      "max": 170
+    },
+    "common_keys": [
+      "varies widely",
+      "often atonal or microtonal"
+    ],
+    "characteristic_elements": [
+      "complex irregular rhythms",
+      "glitchy textures",
+      "unconventional song structures",
+      "intricate sound design",
+      "unpredictable pattern changes",
+      "Aphex Twin / Autechre lineage"
+    ],
+    "sub_genres": [
+      {
+        "name": "Glitch",
+        "bpm": {
+          "min": 90,
+          "max": 140
+        },
+        "characteristic_elements": [
+          "digital artifacts as musical elements",
+          "micro-edits and stutters",
+          "broken rhythms",
+          "granular textures"
+        ],
+        "strudel_approach": {
+          "lead": "sine or square with rapid .speed() and .begin()/.end() variations, micro-tonal, .delay(0.125)",
+          "bass": "sine with glitchy rhythmic pattern, unpredictable",
+          "pads": "granular-style with .speed() variations on sustained tones, .room(0.6)",
+          "drums": "s('bd') s('sd') s('hh') in irregular patterns with .speed() and .gain() randomization via perlin, stutter edits",
+          "effects": "perlin on .speed() and .gain() for glitch randomness, .delay() at unusual subdivisions, .jux(rev)"
+        }
+      },
+      {
+        "name": "Drill and Bass",
+        "bpm": {
+          "min": 140,
+          "max": 170
+        },
+        "characteristic_elements": [
+          "hyper-fast breakbeats",
+          "DnB tempo with IDM complexity",
+          "frenetic energy",
+          "Squarepusher / Venetian Snares style"
+        ],
+        "strudel_approach": {
+          "lead": "sawtooth with erratic .lpf() movement, .delay(0.125), atonal or chromatic runs",
+          "bass": "sawtooth with .distort(0.3).lpf() via fast perlin, aggressive and complex",
+          "pads": "occasional atmospheric breaks with .room(0.8)",
+          "drums": "extremely fast and complex breakbeat patterns, s('break') chopped and rearranged at high speed, .speed() variations, time-signature changes",
+          "effects": "fast perlin on everything, .delay() at short times for frenetic echoes, .distort() for aggression"
+        }
+      }
+    ],
+    "strudel_approach": {
+      "lead": "any oscillator with unconventional .lpf() and pitch patterns",
+      "bass": "varies \u2014 can be sine sub or distorted sawtooth",
+      "pads": "experimental textures with .room(0.7)",
+      "drums": "irregular complex patterns, glitchy processing, time-signature experimentation",
+      "effects": "perlin on everything for unpredictability, .delay() at unusual values, .jux(rev), .speed() variations"
+    }
+  },
+  {
+    "name": "Trap",
+    "bpm": {
+      "min": 130,
+      "max": 170
+    },
+    "common_keys": [
+      "C minor",
+      "D minor",
+      "E minor",
+      "F minor",
+      "G minor",
+      "A minor"
+    ],
+    "characteristic_elements": [
+      "half-time feel at high BPM",
+      "808 sub bass (tuned kicks)",
+      "rapid hi-hat rolls (32nd notes, triplets)",
+      "sparse snare/clap on 3",
+      "dark atmospheric pads",
+      "brass and string stabs"
+    ],
+    "sub_genres": [
+      {
+        "name": "Festival Trap / EDM Trap",
+        "bpm": {
+          "min": 140,
+          "max": 155
+        },
+        "characteristic_elements": [
+          "massive brass stabs",
+          "build-ups with snare rolls",
+          "heavy 808 drops",
+          "EDM-influenced structure",
+          "festival-oriented energy"
+        ],
+        "strudel_approach": {
+          "lead": "sawtooth with .distort(0.2), brass-like stabs, .room(0.4)",
+          "bass": "sine 808-style with long sustain and pitch bend, .distort(0.15) for saturation, .lpf(200)",
+          "pads": "dark sawtooth with .room(0.6).lpf(1000), atmospheric",
+          "drums": "s('bd') on 1 and 3, s('cp') on 3 (half-time), s('hh') rapid 32nd-note rolls with velocity variation, 808 patterns",
+          "effects": ".distort(0.15) on 808 bass for warmth, .room(0.4) on brass stabs, rapid .gain() variation on hi-hats for rolls"
+        }
+      },
+      {
+        "name": "Chill Trap / Future Bass",
+        "bpm": {
+          "min": 130,
+          "max": 150
+        },
+        "characteristic_elements": [
+          "lush supersaws",
+          "heavy sidechain on chords",
+          "pitched vocal chops",
+          "808 bass with melody",
+          "emotional chord progressions",
+          "Flume / San Holo style"
+        ],
+        "strudel_approach": {
+          "lead": "sawtooth stacked with .vowel('a').room(0.5).jux(rev), lush supersaw chords with sidechain pumping via .gain() modulation",
+          "bass": "sine with pitch bends, melodic 808 patterns, .distort(0.1).lpf(200)",
+          "pads": "sawtooth with .room(0.7).jux(rev).lpf(3000), massive and emotional, .gain() pumping",
+          "drums": "s('bd') half-time, s('cp') on 3, s('hh') trap rolls, softer processing than hard trap",
+          "effects": ".gain() modulation for sidechain pump on chords (essential), .room(0.6), .jux(rev) for supersaw width, .vowel() for character"
+        }
+      }
+    ],
+    "strudel_approach": {
+      "lead": "sawtooth brass stabs or supersaw chords",
+      "bass": "sine 808-style with pitch bends, .distort(0.15) for saturation",
+      "pads": "dark sawtooth with .room(0.6)",
+      "drums": "half-time: kick on 1 and 3, clap on 3, rapid hi-hat rolls in 32nds and triplets",
+      "effects": ".distort() on 808 bass, .room(0.4), rapid .gain() variation for hi-hat rolls"
+    }
+  },
+  {
+    "name": "Garage Rock / Post-Punk Electronic",
+    "bpm": {
+      "min": 120,
+      "max": 140
+    },
+    "common_keys": [
+      "E minor",
+      "A minor",
+      "D minor",
+      "G minor"
+    ],
+    "characteristic_elements": [
+      "raw distorted synths",
+      "punk energy with electronic production",
+      "driving bass",
+      "aggressive vocals",
+      "lo-fi aesthetic"
+    ],
+    "sub_genres": [],
+    "strudel_approach": {
+      "lead": "sawtooth with .distort(0.4).lpf(3000), raw and aggressive riffs",
+      "bass": "sawtooth or square with .distort(0.3).lpf(800), driving and punky",
+      "pads": "minimal \u2014 distorted stabs with .room(0.3)",
+      "drums": "s('bd') driving pattern, s('sd') aggressive, s('hh') raw 8ths, punk energy",
+      "effects": ".distort(0.3+) for raw punk character, .room(0.3) tight, .lpf() for lo-fi grit"
+    }
+  }
+]

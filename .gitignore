@@ -1,0 +1,22 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Claude Code (personal config)
+.claude/
+
+# Third-party source repos (cloned for building, not distributed)
+source/
+
+# Old MCP server (replaced by cloudflare/mcp/)
+mcp-server/
+
+# Runtime data
+sessions/
+tmp/
+
+# Skill eval workspace
+skills/dj-opus-workspace/
+
+# Node
+node_modules/

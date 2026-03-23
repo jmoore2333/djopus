@@ -1,0 +1,16 @@
+{
+  "name": "sasha-twilo-megamix",
+  "content": "// Sasha at Twilo - Late Night Progressive\n// 132 BPM | G minor | Deep, hypnotic, filtered\n\nlet kickVol = slider(0.8, 0, 1, 0.01, \"Kick\")\nlet bassVol = slider(0.6, 0, 1, 0.01, \"Bass\")\nlet hatVol = slider(0.35, 0, 1, 0.01, \"Hats\")\nlet arpVol = slider(0.45, 0, 1, 0.01, \"Arp\")\nlet padVol = slider(0.55, 0, 1, 0.01, \"Pad\")\nlet leadVol = slider(0, 0, 1, 0.01, \"Lead\")\nlet filterPos = slider(1500, 200, 4000, 10, \"Filter\")\n\nsetcps(132/60/4)\n\nlet kick = stack(\n  s(\"bd\").bank(\"RolandTR909\").struct(\"x x x x\"),\n  s(\"cp\").bank(\"RolandTR909\").struct(\"~ x ~ x\")\n).gain(kickVol)\n\nlet bass = note(\"<g2 g2 eb2 eb2 bb2 bb2 f2 f2>\")\n  .struct(\"x ~ [~ x] x ~ x [~ x] ~\")\n  .s(\"sawtooth\")\n  .cutoff(perlin.range(250, 1200).slow(16))\n  .resonance(14)\n  .decay(0.2).sustain(0.08).release(0.3)\n  .gain(bassVol)\n  .room(0.25)\n\nlet hats = s(\"hh*8\").bank(\"RolandTR707\")\n  .gain(hatVol)\n  .room(0.15)\n\nlet arp = note(\"g4 d5 bb4 g5 d5 bb4 f5 d5\")\n  .s(\"triangle\")\n  .cutoff(perlin.range(600, 2800).slow(12))\n  .decay(0.12).sustain(0.03).release(0.35)\n  .delay(0.4).delaytime(3/8).delayfeedback(0.5)\n  .gain(arpVol)\n  .room(0.5)\n\nlet pad = note(\"<[g3,bb3,d4] [g3,bb3,d4] [g3,bb3,eb4] [g3,bb3,eb4] [f3,bb3,d4] [f3,bb3,d4] [f3,a3,c4] [f3,a3,c4]>\")\n  .s(\"sawtooth\")\n  .cutoff(perlin.range(300, 1800).slow(24))\n  .resonance(5)\n  .attack(1.0).decay(0.5).sustain(0.7).release(2.0)\n  .vowel(\"<a a e e i i o o>\")\n  .room(0.85).size(0.9)\n  .jux(rev)\n  .gain(padVol)\n\nlet lead = note(\"g4 ~ bb4 ~ d5 ~ c5 bb4 ~ a4 ~ g4 ~ f4 d4 ~\").slow(2)\n  .s(\"sawtooth\")\n  .superimpose(x => x.add(0.08))\n  .superimpose(x => x.add(-0.08))\n  .cutoff(filterPos)\n  .resonance(8)\n  .decay(0.3).sustain(0.15).release(0.8)\n  .delay(0.4).delaytime(3/8).delayfeedback(0.55)\n  .room(0.7).size(0.8)\n  .jux(rev)\n  .gain(leadVol)\n\nstack(kick, bass, hats, arp, pad, lead)",
+  "tags": [
+    "progressive",
+    "trance",
+    "sasha",
+    "twilo",
+    "deep",
+    "hypnotic",
+    "megamix",
+    "132bpm",
+    "gminor"
+  ],
+  "timestamp": "2026-03-23T07:12:10.171Z"
+}

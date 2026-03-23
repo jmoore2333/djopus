@@ -1,0 +1,11 @@
+{
+  "name": "breakdown-void",
+  "content": "// DJ OPUS - SECTION 4: THE BREAKDOWN\n// Everything drops out. Just the voice and the void.\nsetcps(138/60/4)\n\nlet breakFilter = slider(800, 200, 8000, 10, \"BREAK Filter\")\nlet divaSwell = slider(0.5, 0, 0.7, 0.01, \"DIVA Swell\")\n\n// Diva voice - exposed, emotional\nlet diva = note(\"<[a3,e4] [f3,c4] [d3,a3] [e3,b3]>\".slow(4))\n  .s(\"gm_voice_oohs\")\n  .gain(divaSwell)\n  .room(0.95)\n  .size(0.95)\n  .cutoff(breakFilter)\n  .vowel(\"<a e i o>\".slow(8))\n\n// Pad sweep - vast emptiness\nlet sweep = note(\"<[a2,e3,a3] [f2,c3,f3] [d2,a2,d3] [e2,b2,e3]>\".slow(4))\n  .s(\"gm_pad_sweep\")\n  .gain(0.3)\n  .cutoff(perlin.range(300, 2000).slow(16))\n  .room(1)\n  .size(1)\n\n// Crystal fx - distant stars\nlet crystal = note(\"a5 ~ ~ ~ e5 ~ ~ ~\".slow(2))\n  .s(\"gm_fx_crystal\")\n  .gain(0.1)\n  .delay(0.7)\n  .delaytime(0.5)\n  .delayfeedback(0.6)\n  .room(1)\n\n// Atmosphere halo\nlet halo = note(\"<a4 f4 d4 e4>\".slow(4))\n  .s(\"gm_pad_halo\")\n  .gain(0.2)\n  .room(0.95)\n  .size(0.95)\n\nstack(diva, sweep, crystal, halo)",
+  "tags": [
+    "trance",
+    "breakdown",
+    "diva",
+    "atmospheric"
+  ],
+  "timestamp": "2026-03-23T06:15:22.627Z"
+}

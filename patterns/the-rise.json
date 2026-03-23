@@ -1,0 +1,11 @@
+{
+  "name": "the-rise",
+  "content": "// DJ OPUS - SECTION 5: THE RISE\n// Building from nothing to everything\nsetcps(138/60/4)\n\nlet riseFilter = slider(600, 200, 12000, 10, \"RISE Filter\")\nlet tension = slider(0.2, 0, 1, 0.01, \"TENSION\")\n\n// Diva still holding\nlet diva = note(\"<[a3,e4] [f3,c4] [d3,a3] [e3,b3]>\".slow(2))\n  .s(\"gm_voice_oohs\")\n  .gain(0.45)\n  .room(0.9)\n  .size(0.95)\n  .cutoff(riseFilter)\n  .vowel(\"<a e i o>\".slow(4))\n\n// Synth choir joining\nlet choir = note(\"<[a3,c4,e4] [f3,a3,c4] [d3,f3,a3] [e3,g3,b3]>\".slow(2))\n  .s(\"gm_synth_choir\")\n  .gain(tension.mul(0.4))\n  .room(0.85)\n\n// Snare roll building\nlet snare = s(\"sd\").bank(\"RolandTR909\")\n  .gain(tension.mul(0.6))\n  .struct(\"x x x x x x x x\")\n  .room(0.4)\n\n// Kick ghost hits returning\nlet kickGhost = s(\"bd\").bank(\"RolandTR909\")\n  .gain(tension.mul(0.5))\n  .struct(\"x ~ ~ ~ x ~ ~ ~\")\n\n// Rising pad\nlet risePad = note(\"<a2 f2 d2 e2>\".slow(2))\n  .s(\"gm_pad_sweep\")\n  .gain(tension.mul(0.4))\n  .cutoff(riseFilter)\n  .room(0.9)\n  .size(0.95)\n\n// Noise riser\nlet noise = s(\"hh\").bank(\"RolandTR909\")\n  .speed(0.1)\n  .cutoff(riseFilter)\n  .resonance(18)\n  .gain(tension.mul(0.35))\n  .room(0.95)\n  .size(0.95)\n  .struct(\"x x x x\")\n\n// Arp teasing the melody\nlet arp = note(\"a4 ~ e5 ~ c5 ~ a5 ~\")\n  .s(\"triangle\")\n  .cutoff(riseFilter)\n  .decay(0.1)\n  .sustain(0)\n  .gain(tension.mul(0.25))\n  .delay(0.5)\n  .delaytime(3/16)\n  .delayfeedback(0.5)\n  .room(0.6)\n\nstack(diva, choir, snare, kickGhost, risePad, noise, arp)",
+  "tags": [
+    "trance",
+    "build",
+    "rise",
+    "tension"
+  ],
+  "timestamp": "2026-03-23T06:16:12.879Z"
+}

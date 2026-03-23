@@ -1,0 +1,12 @@
+{
+  "name": "acid-euphoria-drop",
+  "content": "// DJ OPUS - SECTION 6: SECOND DROP - ACID EUPHORIA\n// Everything at once. 303 meets diva meets galactic pads.\nsetcps(138/60/4)\n\nlet masterFilter = slider(3000, 500, 12000, 10, \"MASTER Filter\")\nlet acidIntensity = slider(0.5, 0, 0.8, 0.01, \"ACID Intensity\")\nlet divaVol = slider(0.4, 0, 0.7, 0.01, \"DIVA Voice\")\nlet leadVol = slider(0.35, 0, 0.6, 0.01, \"LEAD Melody\")\n\n// KICK - full power\nlet kick = s(\"bd\").bank(\"RolandTR909\")\n  .gain(1.15)\n  .struct(\"x x x x\")\n\n// CLAP\nlet clap = s(\"cp\").bank(\"RolandTR909\")\n  .gain(0.75)\n  .struct(\"~ x ~ x\")\n  .room(0.25)\n\n// HATS - driving\nlet hats = s(\"hh\").bank(\"RolandTR909\")\n  .gain(0.45)\n  .struct(\"~ x ~ x ~ x ~ x\")\n  .cutoff(masterFilter)\n\n// OPEN HAT\nlet oh = s(\"oh\").bank(\"RolandTR909\")\n  .gain(0.35)\n  .struct(\"~ ~ ~ ~ ~ ~ x ~\")\n\n// ACID 303 - squelching underneath\nlet acid = note(\"<a2 a2 c3 a2 e2 e2 g2 e2>\")\n  .s(\"sawtooth\")\n  .cutoff(sine.range(300, 3000).fast(2))\n  .resonance(20)\n  .decay(0.15)\n  .sustain(0)\n  .gain(acidIntensity)\n  .struct(\"x x [x x] x x [~ x] x x\")\n\n// DIVA - voice oohs soaring above\nlet diva = note(\"<[a3,e4] [e3,b3] [f3,c4] [d3,a3]>\".slow(2))\n  .s(\"gm_voice_oohs\")\n  .gain(divaVol)\n  .room(0.85)\n  .size(0.9)\n  .vowel(\"<a e i o>\".slow(4))\n\n// SYNTH CHOIR - backing\nlet choir = note(\"<[a3,c4,e4] [e3,g3,b3] [f3,a3,c4] [d3,f3,a3]>\".slow(2))\n  .s(\"gm_synth_choir\")\n  .gain(divaVol.mul(0.5))\n  .room(0.8)\n\n// GALACTIC PAD - still holding it all together\nlet galactic = note(\"<[a2,e3,a3] [e2,b2,e3] [f2,c3,f3] [d2,a2,d3]>\".slow(2))\n  .s(\"gm_pad_sweep\")\n  .gain(0.25)\n  .cutoff(perlin.range(400, 2500).slow(16))\n  .room(0.9)\n  .size(0.95)\n\n// LEAD - emotional supersaw melody\nlet lead = note(\"a4 ~ c5 ~ e5 ~ a5 e5 ~ c5 a4 ~ e4 ~ a4 ~\")\n  .s(\"sawtooth\")\n  .superimpose(x => x.add(0.08))\n  .superimpose(x => x.add(-0.08))\n  .cutoff(masterFilter)\n  .resonance(4)\n  .decay(0.4)\n  .sustain(0.15)\n  .gain(leadVol)\n  .delay(0.4)\n  .delaytime(3/8)\n  .delayfeedback(0.35)\n  .room(0.6)\n  .jux(rev)\n\n// CRASH\nlet crash = s(\"oh\").bank(\"RolandTR909\")\n  .speed(0.4)\n  .gain(0.45)\n  .room(0.9)\n  .struct(\"x ~ ~ ~ ~ ~ ~ ~\")\n  .slow(4)\n\nstack(kick, clap, hats, oh, acid, diva, choir, galactic, lead, crash)",
+  "tags": [
+    "trance",
+    "drop",
+    "acid",
+    "euphoria",
+    "peak"
+  ],
+  "timestamp": "2026-03-23T06:17:12.130Z"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "progressive-outro",
+  "content": "// DJ OPUS - SECTION 7: PROGRESSIVE OUTRO\n// Sasha closing set. Hypnotic. Drifting. Beautiful.\nsetcps(134/60/4)\n\nlet driftFilter = slider(1500, 200, 4000, 10, \"DRIFT Filter\")\nlet fadeOut = slider(0.7, 0, 1, 0.01, \"FADE Level\")\n\n// Kick - softer now\nlet kick = s(\"bd\").bank(\"RolandTR909\")\n  .gain(fadeOut.mul(0.85))\n  .struct(\"x x x x\")\n\n// Minimal hats\nlet hats = s(\"hh\").bank(\"RolandTR909\")\n  .gain(fadeOut.mul(0.3))\n  .struct(\"~ x ~ x ~ x ~ x\")\n  .cutoff(3000)\n\n// Rim click\nlet rim = s(\"sd\").bank(\"RolandTR909\")\n  .gain(fadeOut.mul(0.2))\n  .struct(\"~ [~ x] ~ ~\")\n  .speed(1.5)\n\n// Hypnotic bass - perlin drift, never repeats\nlet bass = note(\"<a2 a2 a2 e2 a2 a2 g2 e2>\")\n  .s(\"sawtooth\")\n  .cutoff(perlin.range(200, driftFilter).slow(8))\n  .resonance(12)\n  .decay(0.2)\n  .sustain(0.05)\n  .gain(fadeOut.mul(0.55))\n  .struct(\"x ~ x [~ x] x ~ x ~\")\n\n// Last diva echo - fading into the distance\nlet divaEcho = note(\"<[a3,e4] [e3,b3]>\".slow(4))\n  .s(\"gm_voice_oohs\")\n  .gain(fadeOut.mul(0.3))\n  .room(1)\n  .size(1)\n  .delay(0.6)\n  .delaytime(0.5)\n  .delayfeedback(0.55)\n  .cutoff(driftFilter)\n\n// Deep pad - last warmth\nlet deepPad = note(\"<[a2,e3] [e2,b2] [a2,e3] [e2,b2]>\".slow(4))\n  .s(\"gm_pad_sweep\")\n  .gain(fadeOut.mul(0.25))\n  .cutoff(perlin.range(300, 1500).slow(16))\n  .room(0.9)\n  .size(0.95)\n\n// Distant crystal - final sparkle\nlet crystal = note(\"a5 ~ ~ ~ ~ ~ ~ ~\".slow(2))\n  .s(\"gm_fx_crystal\")\n  .gain(fadeOut.mul(0.08))\n  .delay(0.8)\n  .delaytime(0.5)\n  .delayfeedback(0.7)\n  .room(1)\n\nstack(kick, hats, rim, bass, divaEcho, deepPad, crystal)",
+  "tags": [
+    "trance",
+    "outro",
+    "progressive",
+    "sasha"
+  ],
+  "timestamp": "2026-03-23T06:18:04.554Z"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "4am-donato-dozzy",
+  "content": "// DJ OPUS - 4AM DONATO DOZZY\n// Hypnotic. Underwater. Two or three sounds filling the spectrum.\n// Less is more. Patience.\nsetcps(124/60/4)\n\nlet drift = slider(0.4, 0, 0.7, 0.01, \"DRIFT\")\nlet depth = slider(0.5, 0, 1, 0.01, \"DEPTH\")\n\n// Kick - 808 softened into the room\nlet kick = s(\"bd\").bank(\"RolandTR808\")\n  .gain(0.75)\n  .struct(\"x ~ ~ ~ x ~ ~ ~  x ~ ~ x ~ ~ ~ ~\")\n  .room(0.5)\n  .size(0.7)\n\n// Hat - blurred outward, long tails\nlet hat = s(\"hh\").bank(\"RolandTR808\")\n  .gain(0.18)\n  .struct(\"~ ~ x ~ ~ x ~ ~  ~ x ~ ~ x ~ ~ x\")\n  .room(0.7)\n  .size(0.8)\n  .delay(0.3)\n  .delaytime(3/16)\n  .delayfeedback(0.4)\n  .cutoff(perlin.range(1500, 4000).slow(32))\n\n// Deep bass - one note, slow filter drift, never repeats\nlet bass = note(\"a1\")\n  .s(\"sawtooth\")\n  .cutoff(perlin.range(120, 800).slow(32))\n  .resonance(8)\n  .decay(0.4)\n  .sustain(0.15)\n  .gain(depth)\n  .struct(\"x ~ x ~ ~ x ~ x  ~ x ~ ~ x ~ x ~\")\n\n// Sub - just weight\nlet sub = note(\"a0\")\n  .s(\"sine\")\n  .gain(0.4)\n  .struct(\"x ~ ~ ~ x ~ ~ ~  x ~ ~ x ~ ~ ~ ~\")\n  .decay(0.8)\n  .sustain(0.1)\n\n// The wash - one long sawtooth drone, barely moving\nlet wash = note(\"[a2,e3]\")\n  .s(\"sawtooth\")\n  .cutoff(perlin.range(150, 600).slow(64))\n  .resonance(3)\n  .attack(4)\n  .decay(6)\n  .sustain(0.3)\n  .release(4)\n  .gain(drift)\n  .room(0.95)\n  .size(0.98)\n\nstack(kick, hat, bass, sub, wash)",
+  "tags": [
+    "minimal",
+    "hypnotic",
+    "dozzy",
+    "4am",
+    "underwater"
+  ],
+  "timestamp": "2026-03-23T06:47:59.761Z"
+}

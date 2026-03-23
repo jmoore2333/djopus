@@ -1,0 +1,12 @@
+{
+  "name": "progressive-groove",
+  "content": "// PATTERN BANK: Progressive Groove\n// Sasha and Digweed hypnotic minimal groove\nsetcps(132/60/4)\nlet progFilter = slider(1500, 200, 5000, 10, \"PROG Filter\")\nlet groove = slider(0.6, 0, 1, 0.01, \"GROOVE Depth\")\n\nlet kick = s(\"bd\").bank(\"RolandTR909\").gain(0.9).struct(\"x x x x\")\nlet rim = s(\"sd\").bank(\"RolandTR909\").gain(0.25).struct(\"~ [~ x] ~ ~\").speed(1.5)\nlet hats = s(\"hh\").bank(\"RolandTR909\").gain(0.35).struct(\"x [x x] x [x x]\").cutoff(4000)\n\nlet bassline = note(\"<c2 c2 c2 eb2 c2 c2 g1 ab1>\")\n  .s(\"sawtooth\")\n  .cutoff(perlin.range(200, progFilter).slow(8))\n  .resonance(12)\n  .decay(0.2)\n  .sustain(0.05)\n  .gain(groove.mul(0.7))\n  .struct(\"x ~ x [~ x] x ~ x ~\")\n\nlet deepPad = note(\"<[c3,g3] [eb3,bb3] [ab2,eb3] [bb2,f3]>\".slow(4))\n  .s(\"gm_pad_sweep\")\n  .gain(groove.mul(0.3))\n  .cutoff(perlin.range(400, 2000).slow(16))\n  .room(0.8)\n  .size(0.85)\n\nstack(kick, rim, hats, bassline, deepPad)",
+  "tags": [
+    "progressive",
+    "sasha",
+    "digweed",
+    "hypnotic",
+    "building-block"
+  ],
+  "timestamp": "2026-03-23T06:12:39.187Z"
+}

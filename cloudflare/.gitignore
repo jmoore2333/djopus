@@ -1,0 +1,8 @@
+node_modules/
+dist/
+static/
+.wrangler/
+.dev.vars
+*.log
+mcp/node_modules/
+mcp/dist/
