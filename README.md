@@ -1,16 +1,35 @@
 # DJ Opus
 
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)](cloudflare/tsconfig.json)
+[![Cloudflare Workers](https://img.shields.io/badge/runs%20on-Cloudflare%20Workers-F38020?logo=cloudflare&logoColor=white)](https://workers.cloudflare.com)
+[![MCP](https://img.shields.io/badge/MCP-21%20tools-8B5CF6?logo=data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMCIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIyIi8+PC9zdmc+)](cloudflare/mcp/)
+[![Strudel](https://img.shields.io/badge/powered%20by-Strudel-ff69b4)](https://strudel.cc)
+
 AI-powered live-coding music platform built on Cloudflare Workers. Connect any AI agent to a browser-based synthesizer via WebSocket and make music in real time. This is a work in progress that works today - make it your own, or take a spin with DJ Opus.
 
 DJ Opus bridges AI models and the [Strudel](https://strudel.cc) live-coding environment through the [Model Context Protocol](https://modelcontextprotocol.io/) (MCP), enabling AI-assisted composition, mixing, and live performance of electronic music - or whatever else you're into.
 
+## Architecture
+
+```mermaid
+flowchart LR
+  A["AI Agent\n(Claude, GPT, Ollama)"] -->|"MCP stdio"| B["MCP Server\n21 tools"]
+  B -->|"WebSocket"| C["Cloudflare Worker"]
+  B -->|"REST API"| C
+  C --> D["Durable Object\nSQLite persistence"]
+  D -->|"WebSocket"| E["Browser\nStrudel REPL"]
+  E --> F["Web Audio API\nSpeakers"]
+  C --> G["D1 Database\nPattern storage"]
+```
+
 ## What's Here
 
 ```
-strudel/
+djopus/
 ├── cloudflare/           # The application (Worker + MCP server)
 │   ├── src/              # Cloudflare Worker: WebSocket relay, REST API, pattern generation
-│   ├── mcp/              # MCP server: 20 tools for AI-driven music control
+│   ├── mcp/              # MCP server: 21 tools for AI-driven music control
 │   ├── client/           # Browser WebSocket bridge script
 │   └── drizzle/          # D1 database migrations
 ├── patterns/             # 16 curated example patterns from DJ sessions
@@ -21,21 +40,6 @@ strudel/
 
 ## How It Works
 
-```
-AI Agent (Claude, GPT, Ollama, etc.)
-        | MCP protocol (stdio)
-        v
-MCP Server (20 tools, local Node.js)
-        | WebSocket + REST
-        v
-Cloudflare Worker (edge)
-        |
-   Durable Object (persistent sessions)
-        | WebSocket
-        v
-Browser (Strudel REPL -> Web Audio -> speakers)
-```
-
 The AI sends commands (`compose`, `write`, `set_tempo`, `undo`) via MCP. The Worker relays them through a Durable Object to the browser, where Strudel synthesizes audio. Pattern history, undo/redo state, and saved patterns persist via Durable Object SQLite storage and D1.
 
 See [`cloudflare/README.md`](cloudflare/README.md) for full architecture details, deployment guide, and API reference.
@@ -44,8 +48,8 @@ See [`cloudflare/README.md`](cloudflare/README.md) for full architecture details
 
 ```bash
 # 1. Clone
-git clone https://github.com/jmoore/strudel.git
-cd strudel/cloudflare
+git clone https://github.com/jmoore2333/djopus.git
+cd djopus/cloudflare
 
 # 2. Install
 npm install
