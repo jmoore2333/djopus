@@ -18,5 +18,12 @@ tmp/
 # Skill eval workspace
 skills/dj-opus-workspace/
 
+# Local research (lives in strudel-labs)
+local-research/
+
+# OpenCode
+.opencode/
+opencode.json
+
 # Node
 node_modules/
