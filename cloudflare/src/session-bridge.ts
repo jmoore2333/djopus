@@ -59,6 +59,26 @@ export class SessionBridge extends DurableObject<Env> {
     await this.ensureLoaded();
 
     const url = new URL(request.url);
+    if (request.headers.get('Upgrade') !== 'websocket') {
+      if (url.pathname === '/alias') {
+        if (request.method === 'GET') {
+          const sessionId = await this.ctx.storage.get<string>('aliasSessionId');
+          return Response.json({ sessionId: sessionId ?? null });
+        }
+
+        if (request.method === 'POST') {
+          const body = (await request.json()) as { sessionId?: string };
+          if (!body.sessionId) {
+            return Response.json({ error: 'sessionId is required' }, { status: 400 });
+          }
+          await this.ctx.storage.put('aliasSessionId', body.sessionId);
+          return Response.json({ ok: true });
+        }
+      }
+
+      return new Response('Expected WebSocket upgrade', { status: 426 });
+    }
+
     const role: ClientRole = url.searchParams.get('role') === 'controller' ? 'controller' : 'browser';
 
     const pair = new WebSocketPair();
@@ -100,9 +120,9 @@ export class SessionBridge extends DurableObject<Env> {
         await this.persistState();
         const browserCount = this.broadcastTo('browser', data);
         if (browserCount === 0) {
-          this.ackTo('controller', rid, 'no_browser', { warning: 'No browser connected. Open djopus.moore.nyc first.' });
-        } else {
-          this.ackTo('controller', rid, 'playing', { browsers: browserCount });
+          this.ackTo('controller', rid, 'no_browser', {
+            warning: 'No DJ Opus browser session is connected. Call openDJOpus first and wait for the REPL to load.',
+          });
         }
         break;
       }
@@ -117,13 +137,19 @@ export class SessionBridge extends DurableObject<Env> {
         this.currentPattern = data.payload.code;
         this.pushHistory(data.payload.code);
         await this.persistState();
-        this.broadcastTo('browser', data);
-        this.ackTo('controller', rid, 'code_set');
+        if (this.broadcastTo('browser', data) === 0) {
+          this.ackTo('controller', rid, 'no_browser', {
+            warning: 'No DJ Opus browser session is connected. Call openDJOpus first and wait for the REPL to load.',
+          });
+        }
         break;
 
       case 'set_tempo':
-        this.broadcastTo('browser', data);
-        this.ackTo('controller', rid, 'tempo_sent');
+        if (this.broadcastTo('browser', data) === 0) {
+          this.ackTo('controller', rid, 'no_browser', {
+            warning: 'No DJ Opus browser session is connected. Call openDJOpus first and wait for the REPL to load.',
+          });
+        }
         break;
 
       case 'get_code':
@@ -131,18 +157,45 @@ export class SessionBridge extends DurableObject<Env> {
         break;
 
       case 'append_code':
-        this.broadcastTo('browser', data);
-        this.ackTo('controller', rid, 'append_sent');
+        if (this.broadcastTo('browser', data) === 0) {
+          this.ackTo('controller', rid, 'no_browser', {
+            warning: 'No DJ Opus browser session is connected. Call openDJOpus first and wait for the REPL to load.',
+          });
+        }
         break;
 
       case 'replace_code':
-        this.broadcastTo('browser', data);
-        this.ackTo('controller', rid, 'replace_sent');
+        if (this.broadcastTo('browser', data) === 0) {
+          this.ackTo('controller', rid, 'no_browser', {
+            warning: 'No DJ Opus browser session is connected. Call openDJOpus first and wait for the REPL to load.',
+          });
+        }
         break;
 
       case 'add_effect':
-        this.broadcastTo('browser', data);
-        this.ackTo('controller', rid, 'effect_sent');
+        if (this.broadcastTo('browser', data) === 0) {
+          this.ackTo('controller', rid, 'no_browser', {
+            warning: 'No DJ Opus browser session is connected. Call openDJOpus first and wait for the REPL to load.',
+          });
+        }
+        break;
+
+      case 'recover_audio':
+        if (this.broadcastTo('browser', data) === 0) {
+          this.ackTo('controller', rid, 'no_browser', {
+            warning: 'No DJ Opus browser session is connected. Call openDJOpus first and wait for the REPL to load.',
+          });
+        }
+        break;
+
+      case 'reset_session':
+        this.resetState();
+        await this.persistState();
+        this.broadcastTo('browser', { type: 'reset_session', payload: { code: '' } });
+        this.ackTo('controller', rid, 'session_reset', {
+          currentPattern: this.currentPattern,
+          historySize: this.patternHistory.length,
+        });
         break;
 
       case 'undo': {
@@ -197,6 +250,17 @@ export class SessionBridge extends DurableObject<Env> {
           this.broadcastTo('controller', { type: 'code_response', request_id: rid, payload: data.payload });
         }
         break;
+
+      case 'ack':
+        if (sender.role === 'browser') {
+          this.broadcastTo('controller', {
+            type: 'ack',
+            request_id: rid,
+            status: data.status,
+            payload: data.payload,
+          });
+        }
+        break;
     }
   }
 
@@ -230,6 +294,14 @@ export class SessionBridge extends DurableObject<Env> {
     if (this.historyIndex >= this.patternHistory.length - 1) return null;
     this.historyIndex++;
     return this.patternHistory[this.historyIndex];
+  }
+
+  private resetState(): void {
+    this.currentPattern = '';
+    this.isPlaying = false;
+    this.patternHistory = [''];
+    this.historyIndex = 0;
+    this.lastActivity = new Date().toISOString();
   }
 
   // --- Helpers ---

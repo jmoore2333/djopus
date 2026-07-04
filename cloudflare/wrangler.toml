@@ -1,6 +1,9 @@
 name = "djopus"
 main = "src/index.ts"
 compatibility_date = "2026-03-23"
+# nodejs_compat: the bundler resolves the lazily-imported /mcp handler (agents SDK)
+# even though this worker never serves /mcp, so node builtins must be available.
+compatibility_flags = ["nodejs_compat"]
 workers_dev = false
 upload_source_maps = true
 
@@ -20,7 +23,7 @@ run_worker_first = true
 [[d1_databases]]
 binding = "DB"
 database_name = "djopus"
-database_id = "69bfae27-77ed-4967-89c7-d44af5650b6b"
+database_id = "YOUR_D1_DATABASE_ID"
 migrations_dir = "drizzle"
 
 [[durable_objects.bindings]]

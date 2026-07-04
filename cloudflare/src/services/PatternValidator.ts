@@ -44,6 +44,7 @@ export class PatternValidator {
 
     // Check for common Strudel syntax patterns
     const syntaxCheck = this.checkStrudelSyntax(pattern);
+    errors.push(...syntaxCheck.errors);
     warnings.push(...syntaxCheck.warnings);
     suggestions.push(...syntaxCheck.suggestions);
 
@@ -136,7 +137,8 @@ export class PatternValidator {
   /**
    * Checks for common Strudel syntax patterns and potential issues
    */
-  private checkStrudelSyntax(pattern: string): { warnings: string[]; suggestions: string[] } {
+  private checkStrudelSyntax(pattern: string): { errors: string[]; warnings: string[]; suggestions: string[] } {
+    const errors: string[] = [];
     const warnings: string[] = [];
     const suggestions: string[] = [];
 
@@ -166,7 +168,7 @@ export class PatternValidator {
         'euclidLegacy', 'choose', 'chooseWith', 'range', 'sine', 'saw', 'square',
         'tri', 'rand', 'perlin', 'add', 'sub', 'mul', 'div', 'mod', 'pow',
         'min', 'max', 'floor', 'ceil', 'round', 'bank', 'vowel', 'speed',
-        'begin', 'end', 'crush', 'shape', 'orbit', 'vibrato', 'cat', 'seq',
+        'begin', 'end', 'crush', 'shape', 'orbit', 'vibrato', 'detune', 'noise', 'cat', 'seq',
         'samples', 'clip', 'chop', 'striate', 'loopAt', 'degrade', 'degradeBy',
         'superimpose', 'off', 'echo', 'echoWith', 'slider', 'chord',
         'splice', 'fit', 'slice', 'hush', 'silence', 'let', 'var', 'const'
@@ -185,7 +187,80 @@ export class PatternValidator {
       suggestions.push('Consider adding setcps(120/60/4) to set tempo');
     }
 
-    return { warnings, suggestions };
+    const sliderIssues = this.checkSliderUsage(pattern);
+    errors.push(...sliderIssues.errors);
+    warnings.push(...sliderIssues.warnings);
+    suggestions.push(...sliderIssues.suggestions);
+
+    const rangeIssues = this.checkRangeUsage(pattern);
+    errors.push(...rangeIssues.errors);
+    warnings.push(...rangeIssues.warnings);
+    suggestions.push(...rangeIssues.suggestions);
+
+    return { errors, warnings, suggestions };
+  }
+
+  /**
+   * Checks for slider() usage that this Strudel build cannot handle safely.
+   */
+  private checkSliderUsage(pattern: string): { errors: string[]; warnings: string[]; suggestions: string[] } {
+    const errors: string[] = [];
+    const warnings: string[] = [];
+    const suggestions: string[] = [];
+
+    const sliderCalls = pattern.match(/slider\(([^)]*)\)/g);
+    if (!sliderCalls) {
+      return { errors, warnings, suggestions };
+    }
+
+    sliderCalls.forEach((call) => {
+      const argsText = call.slice('slider('.length, -1);
+      const args = argsText.split(',').map((arg) => arg.trim());
+      if (args.length === 0) return;
+
+      const firstArg = args[0];
+      if (/^["'].*["']$/.test(firstArg)) {
+        errors.push(`Named slider syntax is not supported here: ${call}`);
+        suggestions.push('Use slider(initialValue, min, max, step) with only numeric arguments, for example slider(0.6, 0.0, 1.0, 0.01).');
+        return;
+      }
+
+      if (args.length >= 3) {
+        const min = Number(args[1]);
+        const max = Number(args[2]);
+        if (!Number.isNaN(min) && !Number.isNaN(max) && min > max) {
+          warnings.push(`Slider min is greater than max: ${call}`);
+          suggestions.push('Swap the slider min and max values so the range can move normally.');
+        }
+      }
+    });
+
+    return { errors, warnings, suggestions };
+  }
+
+  /**
+   * Checks for bare range(...) calls. In this Strudel build, range is a Pattern method,
+   * so bare calls like range(0, 1).slow(8) produce confusing runtime failures.
+   */
+  private checkRangeUsage(pattern: string): { errors: string[]; warnings: string[]; suggestions: string[] } {
+    const errors: string[] = [];
+    const warnings: string[] = [];
+    const suggestions: string[] = [];
+
+    const bareRangeCalls = Array.from(pattern.matchAll(/(^|[^.\w])(range\s*\([^)]*\))/g));
+    if (bareRangeCalls.length === 0) {
+      return { errors, warnings, suggestions };
+    }
+
+    bareRangeCalls.forEach((match) => {
+      const call = match[2];
+      errors.push(`Bare range() is not supported in this Strudel build: ${call}`);
+    });
+
+    suggestions.push('Use a continuous pattern method such as sine.slow(8).range(0, 1) instead of range(0, 1).slow(8).');
+    suggestions.push('For filter sweeps, try a pattern like sine.slow(8).range(200, 8000).');
+
+    return { errors, warnings, suggestions };
   }
 
   /**

@@ -10,6 +10,10 @@ AI-powered live-coding music platform built on Cloudflare Workers. Connect any A
 
 DJ Opus bridges AI models and the [Strudel](https://strudel.cc) live-coding environment through the [Model Context Protocol](https://modelcontextprotocol.io/) (MCP), enabling AI-assisted composition, mixing, and live performance of electronic music - or whatever else you're into.
 
+## ChatGPT App Port
+
+A ChatGPT Apps version of DJ Opus (MCP over Streamable HTTP, with the Strudel REPL rendered as an inline widget) is running in private beta. The implementation ships to this repository when the app is published to ChatGPT.
+
 ## Architecture
 
 ```mermaid

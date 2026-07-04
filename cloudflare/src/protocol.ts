@@ -51,6 +51,16 @@ export interface AddEffectCommand {
   payload: { effect: string; params?: Record<string, number> };
 }
 
+export interface RecoverAudioCommand {
+  type: 'recover_audio';
+  request_id?: string;
+}
+
+export interface ResetSessionCommand {
+  type: 'reset_session';
+  request_id?: string;
+}
+
 // === Controller -> DO commands ===
 
 export interface UndoCommand {
@@ -146,9 +156,12 @@ export type IncomingMessage =
   | AppendCodeCommand
   | ReplaceCodeCommand
   | AddEffectCommand
+  | RecoverAudioCommand
+  | ResetSessionCommand
   | UndoCommand
   | RedoCommand
   | GetStateCommand
   | StatusReport
   | PatternError
-  | CodeResponse;
+  | CodeResponse
+  | AckMessage;

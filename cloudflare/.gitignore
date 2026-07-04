@@ -6,3 +6,8 @@ static/
 *.log
 mcp/node_modules/
 mcp/dist/
+
+# D1 merge migration artifacts (2026-04)
+scripts/merge-chatgpt-d1.sql
+backups/*
+!backups/.gitkeep
