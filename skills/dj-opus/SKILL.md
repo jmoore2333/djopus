@@ -133,6 +133,8 @@ The user wants to build music together in real time. They'll give short, punchy 
 - **Speed over perfection.** Get sound out fast. You can refine later. Start simple, layer up.
 - **Read the room.** When the user says "harder", they mean NOW. Don't explain what you're about to do -- just do it and tell them what changed.
 - **Respect hard cuts.** When the user asks for a completely different genre or vibe, this IS a hard cut moment -- and that's OK in Tag Team. Acknowledge it: "Hard cut incoming -- switching to DnB." Then rewrite the pattern.
+- **Tempo changes reclock the whole pattern.** `set_tempo` is a hard cut even though nothing else changes: the kick lands on a new grid. Move tempo in steps of 2-3 BPM with time between them, or get "faster" from doubled hats and 16th bass at the same BPM. Also send one live edit at a time -- each `replace_code` re-evaluates, and three in a row stutters.
+- **Re-read before you replace.** When the user drags a slider, the player rewrites that `slider(...)` line with the new value, so a `replace_code` whose search text includes the old value silently matches nothing (`changed: false`). Call `get_code` first, or search on text that does not contain the slider value.
 - **Additive by default.** Most Tag Team requests are additive -- "add bass", "more reverb", "throw in some hats". Read the current pattern with `mcp__djopus__get_code`, modify it, write it back. For small targeted changes, use `mcp__djopus__replace_code` or `mcp__djopus__append_code` instead of rewriting the whole pattern.
 - **Save checkpoints.** When something sounds good and the user is vibing, save it. Use descriptive names based on the vibe, not version numbers.
 - **Use undo/redo.** If a change doesn't land, `mcp__djopus__undo` gets back to the previous state instantly. This is faster than rewriting.
@@ -189,13 +191,15 @@ Read `references/strudel-cheatsheet.md` for the full syntax reference. But these
 
 4. **GM instruments are unreliable.** `gm_voice_oohs`, `gm_choir_aahs`, etc. may not produce sound. Use synthesis oscillators (sawtooth, triangle, sine, square) with `.vowel()` for vocal textures instead.
 
-5. **Use setcps(bpm/60/4) for tempo, NOT setcpm.** `setcpm` does not exist. The correct function is `setcps()` which takes cycles-per-second. Convert BPM: `setcps(BPM / 60 / 4)`.
+5. **Use setcps(bpm/60/4) for tempo, NOT setcpm.** `setcpm` takes cycles per minute, so BPM math with it is wrong by a factor of four; always use `setcps()`, which takes cycles per second. Convert BPM: `setcps(BPM / 60 / 4)`.
 
 6. **Vowel filter for vocal textures:** `.vowel("<a e i o>")` on sawtooth oscillators is the most reliable way to get vocal/choir textures.
 
 7. **Always start pattern code with `// DJ OPUS`.** Every pattern written via `mcp__djopus__write` must begin with `// DJ OPUS` as the first line. This is the signature.
 
-8. **Browser must be open.** The user must have the player (`/s/<id>`) open in their browser. If tools fail because no player is open, give the user the player URL from the error, or ask them to open/refresh that tab. The user must also click once to unlock Web Audio on first visit.
+8. **The server validates before it plays.** `write`, `play`, `append_code`, `replace_code` and `add_effect` are refused, and nothing changes, when the code calls a function name the pinned Strudel build does not have, or uses `.gain()` above 5. The known names come from the real Strudel API, so a refusal means a typo or a function from another version, not a missing allowlist entry. Comments and strings are not scanned, so apostrophes and words followed by `(` in comments are fine. Variables you declare in the pattern (`const kickVol = slider(...)`) are known; declare a slider in the same edit that first uses it, or the browser evaluates a reference to nothing and keeps playing the old pattern.
+
+9. **Browser must be open.** The user must have the player (`/s/<id>`) open in their browser. If tools fail because no player is open, give the user the player URL from the error, or ask them to open/refresh that tab. The user must also click once to unlock Web Audio on first visit.
 
 ## Know When to Research vs When to Riff
 
@@ -284,6 +288,15 @@ Use `mcp__djopus__save` to checkpoint patterns in this session's crate with desc
 Naming convention: use kebab-case descriptive names based on the vibe, not version numbers. Examples: `dreamy-trance-opener`, `acid-techno-peak`, `ambient-breakdown`, `dnb-liquid-groove`.
 
 Tags should cover: genre, mood, role-in-set (opener, build, peak, outro), and any notable features (acid, supersaw, minimal, etc.).
+
+## Closing Out a Set -- Export the Crate
+
+`save` is a checkpoint in the session's crate, and the crate is deleted with the session after 30 idle days. The user will not remember that. So:
+
+- **When the user signals the set is over** ("that's a wrap", "get off the decks", "done for tonight"), or when they say a pattern is a keeper, **write the saved patterns to files in the user's project** without being asked. Use a folder like `djopus-sets/<YYYY-MM-DD>-<set-name>/`, one `NN-<pattern-name>.js` per pattern in set order, plus a short `README.md` listing each file, its BPM/key/role, and the player URL from `get_state` (`playerUrl`) so the user can reopen the session or `connect` to it from any agent later.
+- **How to export:** `list` returns names and tags only. For a pattern whose code you wrote this session, write that code. Otherwise `stop`, then for each name `load` with `auto_play: false` followed by `get_code`, and write what comes back (it includes the slider values as the user left them).
+- **Tell the user where the files are** and that the crate copy expires. If they run their agent somewhere without a project directory, tell them the player URL is the only way back to the crate, and that it goes cold after 30 idle days.
+- **Keep saving checkpoints during the set as before.** The export is in addition to, not instead of, `save`.
 
 ## Sound Design Reference
 

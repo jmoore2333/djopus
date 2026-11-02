@@ -1,6 +1,6 @@
 {
   "name": "djopus",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "private": true,
   "type": "module",
   "scripts": {
@@ -9,7 +9,9 @@
     "predeploy": "npm run sync:static && node scripts/check-static.mjs && npm run build:library",
     "deploy": "wrangler deploy",
     "sync:static": "cp client/strudel-ws-bridge.js client/_headers static/",
-    "build:strudel": "bash scripts/build-strudel.sh",
+    "build:strudel": "bash scripts/build-strudel.sh && npm run build:names",
+    "build:names": "node scripts/build-strudel-names.mjs",
+    "check:names": "node scripts/build-strudel-names.mjs --check",
     "build:library": "node scripts/build-library.mjs",
     "check:library": "node scripts/build-library.mjs --check",
     "pretest": "node scripts/ensure-static.mjs && npm run check:library",

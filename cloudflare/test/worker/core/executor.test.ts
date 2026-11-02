@@ -194,6 +194,19 @@ describe('playback', () => {
     expect(session.types()).not.toContain('set_code');
   });
 
+  it('plays a pattern that calls Strudel controls and widgets, and comments that say anything', async () => {
+    // Refused before the names came from the Strudel build: lpq, size, delaytime, delayfeedback and pianoroll were not on
+    // a hand-written list, a comment's "chaos (" read as a call and its apostrophe as an open quote.
+    const pattern = [
+      "// the lead's gaps leave room for chaos (on purpose)",
+      'note("<a3 f3>").s("supersaw").lpq(8).room(0.7).size(0.9)',
+      '  .delay(0.5).delaytime(3/8).delayfeedback(0.45).degradeBy(0.1).pianoroll()',
+    ].join('\n');
+    const session = browserSession();
+    expect(await executorFor(session).executeTool('write', { pattern, auto_play: true })).toMatchObject({ status: 'playing' });
+    expect(session.sent).toContainEqual({ type: 'evaluate', payload: { code: pattern } });
+  });
+
   it('play evaluates what the editor holds', async () => {
     const session = browserSession({ code: 's("hh*8")' });
     expect(await executorFor(session).executeTool('play', {})).toMatchObject({ status: 'playing', length: 9 });

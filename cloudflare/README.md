@@ -218,7 +218,7 @@ cloudflare/
 │   └── services/
 │       ├── MusicTheory.ts        # Scales, chords, euclidean rhythms
 │       ├── PatternGenerator.ts   # Genre-based pattern generation
-│       └── PatternValidator.ts   # Pattern syntax validation
+│       └── PatternValidator.ts   # Pattern validation against src/core/strudel-names.generated.json
 ├── client/
 │   ├── strudel-ws-bridge.js      # Browser-side WebSocket client (the canonical copy)
 │   └── _headers                  # Referrer-Policy for the static assets
@@ -232,6 +232,8 @@ cloudflare/
 │       └── tools.ts              # Re-exports the tool registry of src/core/tools.ts
 ├── test/                         # Worker (test/worker) and unit (test/unit) suites
 └── static/                       # Built Strudel REPL (not committed; npm run build:strudel makes it)
+
+`npm run build:strudel` also regenerates `src/core/strudel-names.generated.json`, the list of function names the pinned Strudel build defines; the validator refuses a pattern that calls a name not in it (and `.gain()` above 5) before it reaches the player. `npm run check:names` verifies the committed list against the clone in `.strudel-build/`.
 ```
 
 ## Browser WebSocket Protocol

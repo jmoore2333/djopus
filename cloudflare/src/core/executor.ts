@@ -67,6 +67,9 @@ export function createExecutor(deps: ExecutorDeps): {
     return validator.validate(checkCode(pattern, 'pattern'));
   }
 
+  // A call to a name the REPL does not have is refused here too, not only a syntax error: Strudel turns it into an
+  // evaluation error that leaves the player silent, and the browser could still ack the evaluation. The names come
+  // from the pinned Strudel build (src/core/strudel-names.generated.json), so only a truly unknown name is refused.
   function validatePlayablePattern(pattern: string, action: string): void {
     const result = validateCode(pattern);
     const executableWarnings = result.warnings.filter((warning) => warning.startsWith('Unknown function:'));

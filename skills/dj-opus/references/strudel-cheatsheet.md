@@ -29,7 +29,8 @@
 | NO `.mul()` or `.add()` on slider values chained with other patterns | "Can't do arithmetic on control pattern" error. Each element needs its own dedicated slider. |
 | `write` with `auto_play: true` = hard cut | No crossfade exists. Build ONE mega-pattern with sliders instead of swapping patterns. |
 | GM instruments (soundfonts package) are unreliable | `gm_voice_oohs`, `gm_choir_aahs`, etc. may not produce sound. Use synthesis + `.vowel()` instead. |
-| Use `setcps(bpm/60/4)`, NOT `setcpm` | `setcpm` does not exist. Always use `setcps()`. |
+| Use `setcps(bpm/60/4)`, NOT `setcpm` | `setcpm` takes cycles per minute (a quarter of BPM); the BPM math goes wrong. Always use `setcps()`. |
+| Unknown function names are refused | The server checks every call against the pinned Strudel build before playing; `.gain()` above 5 is refused too. Comments and strings are not scanned. |
 | `load` replaces current pattern | The `load` function replaces the current browser pattern. Save first if needed (`save` puts it in this session's crate, which expires with the session; write it to a file to keep it). |
 
 ---
@@ -216,7 +217,8 @@ s("sbd")   // dedicated synth bass drum
 
 ### Pitch Envelope
 ```javascript
-.pitch(1200)        // pitch sweep amount (cents)
+.penv(12)           // pitch envelope depth (semitones)
+.pattack(0.01).pdecay(0.1)  // pitch envelope times (also prelease, pcurve, panchor)
 .pitchJump(2400)    // pitch jump amount
 .pitchJumpTime(0.1) // time for pitch jump
 ```
@@ -314,7 +316,7 @@ All confirmed in packages/superdough/ source.
 ### Waveshape (AudioWorklet)
 ```javascript
 .shape(0.5)            // waveshaping distortion
-.shapevol(0.8)         // post-shape gain
+.shape("0.5:0.8")      // shape:post-shape gain (shapevol has no function of its own)
 ```
 
 ### Phaser
@@ -328,9 +330,9 @@ All confirmed in packages/superdough/ source.
 
 ### Tremolo
 ```javascript
-.tremolo(1)            // enable tremolo
+.tremolo(4)            // tremolo LFO speed in Hz (alias: trem); or .tremolosync(4) in cycles
 .tremolodepth(0.5)     // depth
-.tremolorate(4)        // LFO rate (via tremoloshape/tremoloskew)
+.tremoloshape("sine")  // LFO shape; .tremoloskew(0.5) skews it
 .tremolophase(0)       // LFO phase
 ```
 
@@ -352,8 +354,8 @@ All confirmed in packages/superdough/ source.
 
 ### Transient Shaping
 ```javascript
-.transient(0.5)        // transient emphasis
-.transsustain(0.3)     // sustain portion
+.transient(0.5)        // transient emphasis (-1 to 1)
+.transient("0.5:0.3")  // attack:sustain emphasis (sustain has no function of its own)
 ```
 
 ---
