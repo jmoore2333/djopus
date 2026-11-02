@@ -109,6 +109,14 @@ Styles: techno, house, trance, dnb, ambient, trap, jungle, breakbeat, trip_hop, 
 
 The **crate** is private to a session and holds up to 50 patterns; it is deleted with the session. The **library** is the curated set from [`../patterns/`](../patterns/), read-only and the same for every session; `load` looks in the crate first and then the library. To keep a pattern beyond the session, write its code to a file in your project.
 
+### Prompts and resources
+
+Besides the tools, `/mcp` serves what tells an agent how to DJ, so any client gets the DJ skill with the URL alone:
+
+- **Server instructions** (sent on `initialize`): the player flow, the one-pattern-with-sliders architecture, live-edit etiquette, what the server refuses, saving. The text is `INSTRUCTIONS` in `src/core/guide.ts`.
+- **Prompts** `megamix` (a planned extended set, driven with sliders) and `tag-team` (rapid collaborative jamming): the two modes of the skill, as one user message each. `PROMPTS` in `src/core/guide.ts`.
+- **Resources** `djopus://reference/strudel-cheatsheet`, `djopus://reference/genres`, `djopus://reference/classic-tracks` and `djopus://reference/sample-banks`: the reference files of `skills/dj-opus/references/`, verbatim. `npm run build:references` builds them into `src/references.generated.json` (committed; `npm test` runs `check:references` first, `npm run deploy` rebuilds it), so the Worker reads no file and the resources are the skill's files.
+
 ## Quick Start
 
 ### Prerequisites
@@ -219,6 +227,7 @@ cloudflare/
 │       ├── MusicTheory.ts        # Scales, chords, euclidean rhythms
 │       ├── PatternGenerator.ts   # Genre-based pattern generation
 │       └── PatternValidator.ts   # Pattern validation against src/core/strudel-names.generated.json
+│   (src/core/guide.ts: server instructions + prompts; src/core/references.ts: the reference resources)
 ├── client/
 │   ├── strudel-ws-bridge.js      # Browser-side WebSocket client (the canonical copy)
 │   └── _headers                  # Referrer-Policy for the static assets

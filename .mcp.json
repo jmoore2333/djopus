@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "djopus": {
+      "type": "http",
+      "url": "https://play.djopus.party/mcp"
+    }
+  }
+}

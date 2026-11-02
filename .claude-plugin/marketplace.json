@@ -1,0 +1,12 @@
+{
+  "name": "djopus",
+  "owner": { "name": "Jeremy Moore" },
+  "description": "DJ Opus: the dj-opus skill and the hosted Strudel MCP server",
+  "plugins": [
+    {
+      "name": "djopus",
+      "source": "./",
+      "description": "DJ Opus skill (Megamix and Tag Team modes) plus the play.djopus.party MCP server"
+    }
+  ]
+}

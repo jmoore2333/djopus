@@ -1,8 +1,10 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { McpAgent } from 'agents/mcp';
+import { INSTRUCTIONS } from '../core/guide';
 import { logEvent, sessionHash } from '../log';
 import { SESSION_TTL_MS } from '../session-bridge';
 import { SESSION_BINDING_KEY, storageBinding } from './binding';
+import { registerGuide } from './guide';
 import { registerGenericTools } from './tools';
 
 /** When the MCP session last ran a tool, in ms since the epoch. There is none until its first tool call. */
@@ -26,7 +28,8 @@ const EXPIRY_DELAY_S = SESSION_TTL_MS / 1000;
  * its props.
  */
 export class DjOpusMcp extends McpAgent<Env, unknown, { origin: string }> {
-  server = new McpServer({ name: 'djopus', version: '1.0.0' });
+  // The instructions are what every client hands its model on connect: how to DJ with these tools (src/core/guide.ts).
+  server = new McpServer({ name: 'djopus', version: '1.0.0' }, { instructions: INSTRUCTIONS });
 
   // The framework's telemetry events carry this object's name, streamable-http:<Mcp-Session-Id>, and the session id is
   // what lets a client into the MCP session. Nothing subscribes to them, but no raw id is to be logged anywhere, so this
@@ -35,6 +38,7 @@ export class DjOpusMcp extends McpAgent<Env, unknown, { origin: string }> {
 
   async init(): Promise<void> {
     await this.scheduleExpiry();
+    registerGuide(this.server);
     registerGenericTools(this.server, {
       binding: storageBinding(this.ctx.storage),
       origin: this.props?.origin ?? '',

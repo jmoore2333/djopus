@@ -1,0 +1,10 @@
+{
+  "name": "djopus",
+  "version": "0.3.2",
+  "description": "DJ Opus: live-coding electronic music with Strudel, driven by an MCP server. Installs the dj-opus skill and the hosted MCP server.",
+  "author": { "name": "Jeremy Moore" },
+  "homepage": "https://djopus.party",
+  "repository": "https://github.com/jmoore2333/djopus",
+  "license": "MIT",
+  "keywords": ["strudel", "live-coding", "music", "mcp", "dj"]
+}

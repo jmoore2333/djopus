@@ -10,6 +10,53 @@ AI-powered live-coding music platform built on Cloudflare Workers. Connect any A
 
 DJ Opus bridges AI models and the [Strudel](https://strudel.cc) live-coding environment through the [Model Context Protocol](https://modelcontextprotocol.io/) (MCP), enabling AI-assisted composition, mixing, and live performance of electronic music - or whatever else you're into.
 
+## Sixty Seconds to Music
+
+The hosted instance is **https://play.djopus.party**. Its MCP endpoint is `https://play.djopus.party/mcp`, and that URL is all your agent needs: the tools, the DJ know-how, the genre references and a library of patterns all come over it.
+
+1. **Add the server** to your MCP client. In Claude Code (a terminal, not inside a Claude session):
+
+   ```bash
+   claude mcp add --transport http djopus https://play.djopus.party/mcp
+   ```
+
+   Any client with a JSON config takes the same thing (for Claude Code that file is `.mcp.json`; `type` is required, an entry with a `url` but no `type` is read as a stdio server):
+
+   ```json
+   { "mcpServers": { "djopus": { "type": "http", "url": "https://play.djopus.party/mcp" } } }
+   ```
+
+2. **Ask for music.** "Play me some dream trance." The agent's first tool call answers with your player URL, `https://play.djopus.party/s/<id>`. Open it and click once to unlock audio.
+
+3. **Ask again.** You are paired: the agent writes Strudel code, your browser plays it, and the sliders in the pattern are yours to move.
+
+Check the connection with `claude mcp list`, or `/mcp` inside a Claude Code session. For a client without HTTP MCP support, see [Compatibility](#compatibility). To run your own copy, see [Self-Hosting](#self-hosting).
+
+## What Your Agent Gets Over MCP
+
+Nothing to install beyond the URL. The server tells the agent how to DJ:
+
+| What | How it arrives | Contents |
+|---|---|---|
+| 23 tools | `tools/list` | write, play, stop, set_tempo, replace_code, undo, save, load, compose, connect, ... ([tool reference](cloudflare/README.md#mcp-tools-23)) |
+| The rules | server `instructions` on connect | The player flow, the one-pattern-with-sliders architecture (no hard cuts), live-edit etiquette, what the server refuses, saving |
+| Two modes | MCP prompts `megamix` and `tag-team` | A planned extended set you drive with sliders; rapid back-and-forth jamming |
+| The references | MCP resources `djopus://reference/<name>` | `strudel-cheatsheet`, `genres`, `classic-tracks`, `sample-banks` |
+| 16 patterns | the `list` and `load` tools | The curated [`patterns/`](patterns/) library, next to your session's own saved crate |
+
+The same material is the Claude Code skill in [`skills/dj-opus/`](skills/dj-opus/), for people who want it to trigger on its own in Claude Code: see [DJ Opus Skill](#dj-opus-skill). The resources and the skill's references are the same files, built into the Worker, so they cannot drift apart.
+
+## Claude Code Plugin
+
+The repo is also a Claude Code plugin marketplace. Installing the plugin gives you the MCP server entry above and the [`dj-opus` skill](skills/dj-opus/) together, with no clone:
+
+```bash
+claude plugin marketplace add jmoore2333/djopus
+claude plugin install djopus@djopus
+```
+
+The skill then triggers on music talk by itself, and is `/djopus:dj-opus` by name. If you already added the server with `claude mcp add`, remove that entry first (`claude mcp remove djopus`), or the tools show up twice.
+
 ## ChatGPT App Port
 
 A ChatGPT Apps version of DJ Opus (MCP over Streamable HTTP, with the Strudel REPL rendered as an inline widget) is running in private beta. The implementation ships to this repository when the app is published to ChatGPT.
@@ -43,30 +90,6 @@ djopus/
 The AI sends commands (`compose`, `write`, `set_tempo`, `undo`) to the Worker's `/mcp` endpoint. Each MCP session gets its own Durable Object, which drives a DJ Opus session: another Durable Object that holds the current pattern, the undo/redo history and the session's crate of saved patterns (in its SQLite storage), and relays commands over a WebSocket to the player in your browser, where Strudel synthesizes the audio. When you play code by hand (Ctrl+Enter), the player reports it to the session, so the agent works from what is really playing.
 
 See [`cloudflare/README.md`](cloudflare/README.md) for full architecture details, the deployment guide and the tool reference.
-
-## Quick Start
-
-The hosted instance is at **https://play.djopus.party**. Its MCP endpoint is `https://play.djopus.party/mcp`.
-
-**Claude Code** (run it in a terminal, not inside a Claude session):
-
-```bash
-claude mcp add --transport http djopus https://play.djopus.party/mcp
-```
-
-`--scope` is `local` by default; `--scope project` writes a `.mcp.json` you can commit, and `--scope user` makes it available in all your projects.
-
-**Any client with a JSON config** (for Claude Code that is `.mcp.json`):
-
-```json
-{ "mcpServers": { "djopus": { "type": "http", "url": "https://play.djopus.party/mcp" } } }
-```
-
-`type` is required: an entry with a `url` but no `type` is read as a stdio server.
-
-Check the connection with `claude mcp list`, or `/mcp` inside a Claude Code session. Then ask for music. The first tool call that needs a player fails with a message that names your player URL, `https://play.djopus.party/s/<id>` (`get_state` returns it as `playerUrl`). Open it, click once to unlock audio, and ask again: you are paired.
-
-For a client without HTTP MCP support, see [Compatibility](#compatibility).
 
 ## Self-Hosting
 
@@ -122,7 +145,7 @@ The [`skills/dj-opus/`](skills/dj-opus/) directory contains a Claude Code skill 
 - **Megamix** — autonomous extended DJ sets with full arc design (intro, build, peak, wind-down)
 - **Tag Team** — collaborative live coding where you and the AI build up, remix, and shape sound together
 
-The skill encodes genre knowledge, pattern code best practices, and production techniques learned from live sessions.
+The skill encodes genre knowledge, pattern code best practices, and production techniques learned from live sessions. Install it with the [plugin](#claude-code-plugin), or copy the folder into `.claude/skills/` of a project. Agents on other clients get the same material over MCP (see [What Your Agent Gets Over MCP](#what-your-agent-gets-over-mcp)).
 
 ## Session Pairing
 
