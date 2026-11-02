@@ -1,0 +1,10 @@
+{
+  // The tests of the app Worker: test/worker (vitest.config.ts) and test/unit (vitest.unit.config.ts), against the
+  // app's generated types. The ChatGPT tests are test/chatgpt, a program of their own. See ../tsconfig.json.
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "types": ["@cloudflare/vitest-plugin/types"]
+  },
+  "include": ["../worker-configuration.d.ts", "../secrets.d.ts", "./worker/**/*.ts", "./unit/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
+}

@@ -1,0 +1,14 @@
+diff --git a/website/astro.config.mjs b/website/astro.config.mjs
+index 86763588379ef16f916d599a6da18c8088a85a60..504c47d25d5bff1e4f1c87e7e06c0213c4195ba7 100644
+--- a/website/astro.config.mjs
++++ b/website/astro.config.mjs
+@@ -73,6 +73,9 @@ export default defineConfig({
+       workbox: {
+         maximumFileSizeToCacheInBytes: 4194304, // 4MB
+         globPatterns: ['**/*.{js,css,html,ico,png,svg,json,wav,mp3,ogg,ttf,woff2,TTF,otf}'],
++        // DJ Opus: the Worker answers these paths itself (API, browser socket, MCP, widget). A navigation to one must
++        // reach the network, not be answered with the cached REPL page.
++        navigateFallbackDenylist: [/^\/(api|ws|mcp|widget)/],
+         runtimeCaching: [
+           {
+             urlPattern: ({ url }) =>

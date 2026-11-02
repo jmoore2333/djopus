@@ -1,0 +1,11 @@
+diff --git a/website/src/pages/index.astro b/website/src/pages/index.astro
+index 29cf2fada62ea263fd57e21af87582efbaddf7c0..a4aee1c4ab1093103ae2b5bd21343ca3df08fb90 100644
+--- a/website/src/pages/index.astro
++++ b/website/src/pages/index.astro
+@@ -11,5 +11,6 @@ import { Repl } from '../repl/Repl';
+   <body class="h-app-height bg-background m-0">
+     <Repl client:only="react" />
+     <a rel="me" href="https://social.toplap.org/@strudel" target="_blank" class="hidden">mastodon</a>
++    <script is:inline src="/strudel-ws-bridge.js"></script>
+   </body>
+ </html>

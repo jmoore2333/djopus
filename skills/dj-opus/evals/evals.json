@@ -1,0 +1,36 @@
+{
+  "skill_name": "dj-opus",
+  "mcp_namespace": "mcp__djopus__",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I want a full trance megamix - think Robert Miles meets Sasha. Start dreamy, build into something euphoric, give me sliders so I can ride the mix myself.",
+      "expected_output": "Should NOT call init or show_browser (they don't exist). Should research genres/tracks references, design a set arc, build a single mega-pattern with 6-8 sliders covering kick/bass/hats/lead/pad/filter. Should use mcp__djopus__write with auto_play: true OR mcp__djopus__compose. Should use triangle for dreamy piano elements and sawtooth for euphoric pads. Should save the pattern with mcp__djopus__save. Should NOT use emoji in code, should NOT use .mul()/.add() on sliders, should NOT use GM instruments, should NOT use setcpm.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "let's jam. start with just a kick and some hats, 128bpm",
+      "expected_output": "Should NOT call init or show_browser. Should get sound out fast using mcp__djopus__write with auto_play: true or mcp__djopus__compose. Just kick and hats at 128 BPM, nothing fancy. Tag Team mode with terse responses. Pattern should be minimal - just the two elements with sliders for volume. Should be ready for the next instruction to layer more on top. No long explanations or set arc planning.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "ok I'm feeling dark tonight. something hypnotic and minimal, like Plastikman or early Richie Hawtin. not trance - proper techno. let it breathe.",
+      "expected_output": "Should pick up on the mood and genre cues - minimal techno, dark, spacious. Should reference the classic tracks data for Plastikman/Hawtin style guidance. BPM should be 125-135 range, not trance tempo. Should use sparse arrangements with lots of space, perlin-driven filter movement, minimal percussion, and emphasis on texture over melody. Should use mcp__djopus__write with auto_play: true. Should NOT build a euphoric supersaw trance pattern. The 'let it breathe' cue means space between elements, reverb, and restraint. Should NOT call init, show_browser, or screenshot.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "make it darker. drop the hats, lower the cutoff, add more room.",
+      "expected_output": "Should use mcp__djopus__get_code to read current pattern, then either mcp__djopus__replace_code for surgical edits or mcp__djopus__write for a full rewrite. Should NOT call init. Response should be terse (Tag Team mode). Could also use mcp__djopus__add_effect for the room/reverb. Should show a quick before/after visual diff.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "that last change was bad, go back",
+      "expected_output": "Should call mcp__djopus__undo immediately. Terse response. Should NOT rewrite the pattern from memory.",
+      "files": []
+    }
+  ]
+}

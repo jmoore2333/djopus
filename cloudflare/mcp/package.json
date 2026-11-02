@@ -1,0 +1,22 @@
+{
+  "name": "djopus-mcp",
+  "version": "0.3.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "tsx src/index.ts",
+    "build": "tsc",
+    "dev": "tsx watch src/index.ts",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.32.1"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.9",
+    "tsx": "^4.19.0",
+    "typescript": "~5.9.3",
+    "vitest": "^4.1.12",
+    "zod": "^4.6.7"
+  }
+}

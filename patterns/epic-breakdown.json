@@ -1,0 +1,12 @@
+{
+  "name": "epic-breakdown",
+  "content": "// PATTERN BANK: Epic Breakdown\n// Strip everything, just pads and diva, slow build\nsetcps(138/60/4)\nlet breakFilter = slider(600, 200, 6000, 10, \"BREAK Filter Open\")\nlet divaBreak = slider(0.4, 0, 0.7, 0.01, \"DIVA Swell\")\nlet tension = slider(0, 0, 1, 0.01, \"TENSION Build\")\n\nlet diva = note(\"<[a3,e4] [f3,c4] [d3,a3] [e3,b3]>\".slow(4))\n  .s(\"gm_voice_oohs\")\n  .gain(divaBreak)\n  .room(0.95)\n  .size(0.95)\n  .cutoff(breakFilter)\n  .vowel(\"<a e i o>\".slow(8))\n\nlet sweep = note(\"<a2 f2 d2 e2>\".slow(4))\n  .s(\"gm_pad_sweep\")\n  .gain(0.35)\n  .cutoff(perlin.range(300, breakFilter).slow(16))\n  .room(1)\n  .size(1)\n\nlet crystal = note(\"a5 ~ ~ ~ e5 ~ ~ ~\".slow(2))\n  .s(\"gm_fx_crystal\")\n  .gain(0.12)\n  .delay(0.7)\n  .delaytime(0.5)\n  .delayfeedback(0.6)\n  .room(1)\n\nlet snareRoll = s(\"sd\").bank(\"RolandTR909\")\n  .gain(tension.mul(0.5))\n  .struct(\"x x x x x x x x\")\n  .room(0.5)\n\nstack(diva, sweep, crystal, snareRoll)",
+  "tags": [
+    "trance",
+    "breakdown",
+    "diva",
+    "atmospheric",
+    "building-block"
+  ],
+  "timestamp": "2026-03-23T06:12:27.442Z"
+}

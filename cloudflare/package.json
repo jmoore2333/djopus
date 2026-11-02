@@ -1,0 +1,33 @@
+{
+  "name": "djopus",
+  "version": "0.3.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "predev": "npm run build:library",
+    "dev": "wrangler dev",
+    "predeploy": "npm run sync:static && node scripts/check-static.mjs && npm run build:library",
+    "deploy": "wrangler deploy",
+    "sync:static": "cp client/strudel-ws-bridge.js client/_headers static/",
+    "build:strudel": "bash scripts/build-strudel.sh",
+    "build:library": "node scripts/build-library.mjs",
+    "check:library": "node scripts/build-library.mjs --check",
+    "pretest": "node scripts/ensure-static.mjs && npm run check:library",
+    "test": "vitest run && vitest run -c vitest.unit.config.ts",
+    "types": "wrangler types worker-configuration.d.ts --strict-vars=false --env-file /dev/null",
+    "types:check": "export WRANGLER_HIDE_BANNER=true && wrangler types worker-configuration.d.ts --check",
+    "typecheck": "npm run types:check && tsc --noEmit && tsc --noEmit -p test"
+  },
+  "devDependencies": {
+    "@cloudflare/vitest-plugin": "^1.4.11",
+    "typescript": "~5.9.3",
+    "vitest": "^4.1.12",
+    "wrangler": "^4.156.0",
+    "ws": "^8.18.0"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.32.1",
+    "agents": "0.30.1",
+    "zod": "^4.3.6"
+  }
+}

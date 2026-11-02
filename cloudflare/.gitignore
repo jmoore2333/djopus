@@ -1,0 +1,8 @@
+node_modules/
+dist/
+# The Strudel REPL that `npm run build:strudel` builds (static/), and the pinned Strudel clone it builds in.
+static/
+.strudel-build/
+.wrangler/
+.dev.vars
+*.log
