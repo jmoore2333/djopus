@@ -1,0 +1,72 @@
+name = "djopus-chatgpt"
+main = "src/index.ts"
+# 2026-10-30 is the newest date the installed workerd (1.20261023.1) takes: it refuses a later one, in the tests and in
+# wrangler dev. It matches wrangler.toml. On it web_socket_auto_reply_to_close is on (since 2026-04-07),
+# so the runtime answers a client's Close frame itself.
+compatibility_date = "2026-10-30"
+# nodejs_compat: the agents SDK of the app's /mcp needs it (node:async_hooks, Buffer).
+compatibility_flags = ["nodejs_compat"]
+workers_dev = false
+upload_source_maps = true
+
+[observability]
+enabled = true
+head_sampling_rate = 1
+redact_query_string = true
+
+[observability.logs]
+invocation_logs = true
+
+[observability.traces]
+enabled = true
+
+[assets]
+directory = "./static"
+binding = "ASSETS"
+not_found_handling = "single-page-application"
+# The Worker runs first only for what src/index.ts answers itself: the API, the browser socket, /mcp, and a JSON 404 for
+# /mcp/* and /.well-known/* (the assets would answer those with index.html, the single-page app: for the
+# OAuth-discovery paths under /.well-known/ that is a 200 text/html where a client expects JSON or a 404); /widget serves the inline player. It hands
+# /ws/* on to the assets. Every other path, the player at /s/<id> included, is answered by the assets without invoking the Worker, and
+# static/_headers gives those answers their Referrer-Policy, since no Worker code runs for them. Keep this list and
+# src/index.ts in step: test/unit/wrangler-config.test.ts reads the list, and test/worker/entry.test.ts the entry.
+run_worker_first = ["/api/*", "/ws", "/ws/*", "/mcp", "/mcp/*", "/widget", "/.well-known/*"]
+
+[[durable_objects.bindings]]
+name = "SESSION_BRIDGE"
+class_name = "SessionBridge"
+
+# One object per MCP session of /mcp (src/remote-mcp/agent.ts).
+[[durable_objects.bindings]]
+name = "DJOPUS_MCP"
+class_name = "DjOpusMcp"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["SessionBridge"]
+
+[[migrations]]
+tag = "v2"
+new_sqlite_classes = ["DjOpusMcp"]
+
+# Per-IP limits, keyed on CF-Connecting-IP (src/routes/rate-limit.ts): /mcp requests, and /ws upgrades. A namespace_id
+# is a number of our choosing, unique in the account. vitest.config.ts raises both limits for the tests.
+[[ratelimits]]
+name = "MCP_RATE_LIMITER"
+namespace_id = "2611021"
+simple = { limit = 120, period = 60 }
+
+[[ratelimits]]
+name = "WS_RATE_LIMITER"
+namespace_id = "2611022"
+simple = { limit = 30, period = 60 }
+
+[[routes]]
+pattern = "chatgpt.djopus.party"
+custom_domain = true
+
+[vars]
+APP_NAME = "DJ Opus (ChatGPT)"
+# Enable ChatGPT-specific response minimization and tool guidance.
+CHATGPT_PRIVACY_MODE = "1"
+# Public domain-ownership proof displayed by OpenAI; this is not an authentication secret.

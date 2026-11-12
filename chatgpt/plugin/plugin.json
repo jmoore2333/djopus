@@ -1,0 +1,103 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "dj-opus",
+  "version": "0.1.4",
+  "description": "Create and perform live-coded music with an interactive Strudel player.",
+  "author": {
+    "name": "DJ Opus",
+    "email": "support@djopus.party",
+    "url": "https://djopus.party"
+  },
+  "homepage": "https://djopus.party",
+  "repository": "https://github.com/jmoore2333/djopus",
+  "keywords": [
+    "music",
+    "live coding",
+    "strudel"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "DJ Opus",
+        "shortDescription": "Make live-coded music",
+        "longDescription": "Create and perform music with an interactive Strudel player in the conversation. Ask DJ Opus to build a groove, change the tempo, edit a pattern, or explore its curated examples. You can also edit the code directly in the player. Named patterns are saved to the current session and may expire after 30 days of inactivity when no session connection remains open. The browser may require a click in the player before audio can start.",
+        "developerName": "DJ Opus",
+        "category": "Creativity",
+        "capabilities": [
+          "Compose patterns",
+          "Play and edit music",
+          "Save session patterns"
+        ],
+        "websiteURL": "https://djopus.party/",
+        "supportURL": "https://djopus.party/support/",
+        "privacyPolicyURL": "https://djopus.party/privacy/",
+        "defaultPrompt": [
+          "Make a dreamy progressive trance groove.",
+          "Create a deep house beat at 122 BPM.",
+          "Open DJ Opus and help me make a drum pattern."
+        ],
+        "composerIcon": "./assets/icon.png",
+        "logo": "./assets/logo.png",
+        "termsOfServiceURL": "https://djopus.party/terms/"
+      },
+      "review": {
+        "commerce": false,
+        "commerce_description": "DJ Opus does not sell products or process payments.",
+        "test_cases": {
+          "positive": [
+            {
+              "description": "In a fresh conversation, open the inline player and make a techno beat. The embedded DJ Opus-controlled Strudel editor at https://chatgpt.djopus.party/widget is necessary to edit and hear the composition inside the conversation; it uses the same domain as the MCP server. Start audio after the in-player click if requested.",
+              "prompt": "Open DJ Opus and make a simple 120 BPM techno beat.",
+              "tools_triggered": "openDJOpus; compose or write",
+              "expected_behavior": "The inline player opens and contains the pattern. If audio needs a gesture, ChatGPT asks the user to click Enable audio or Play inside the player. After the in-player click, the beat is audible. Do not claim playback has started before it does."
+            },
+            {
+              "description": "With the player open and a beat playing in the same conversation, change its tempo without replacing the pattern.",
+              "prompt": "Change the current beat to 110 BPM and keep the pattern the same.",
+              "tools_triggered": "set_tempo",
+              "expected_behavior": "The tempo changes to 110 BPM and the current composition continues. The assistant does not claim a different pattern was created."
+            },
+            {
+              "description": "With the player open, replace the editor contents with a simple, explicitly supplied pattern and play it.",
+              "prompt": "Replace the current code with s(\"bd*4, hh*8\") and play it.",
+              "tools_triggered": "write (auto_play=true), or write followed by play",
+              "expected_behavior": "The editor contains the supplied kick and hi-hat pattern, and playback starts or the user is asked for the required in-player audio gesture."
+            },
+            {
+              "description": "With a nonempty editor and the same session still open, save a uniquely named pattern, list the crate, and load that pattern again.",
+              "prompt": "Save this pattern as review-demo, show my saved patterns, then load review-demo without starting playback.",
+              "tools_triggered": "save, list, load (auto_play=false)",
+              "expected_behavior": "The session crate contains review-demo, list reports it, and load places the saved pattern back in the editor without starting new playback. If audio is already playing, report that it remains active rather than saying the player is stopped. The reviewer can delete the disposable test pattern afterward with an explicit named request and confirmation."
+            },
+            {
+              "description": "With music playing in the current conversation, stop playback.",
+              "prompt": "Stop the music now.",
+              "tools_triggered": "stop",
+              "expected_behavior": "The player stops and its control returns to Play. ChatGPT reports that playback stopped."
+            }
+          ],
+          "negative": [
+            {
+              "description": "Do not delete an unspecified saved pattern: there is no name or unambiguous target.",
+              "prompt": "Delete one of my saved patterns, but I won't tell you which one.",
+              "expected_behavior": "Ask which pattern to delete; do not call delete with a guessed name or remove any saved pattern."
+            },
+            {
+              "description": "Do not invent or access another person's session when the user has no session link or session identifier.",
+              "prompt": "Open my friend's DJ Opus session and show me their saved beats. I don't have their session link or ID.",
+              "expected_behavior": "Explain that the session link or ID is needed and do not invent it, claim to see another person's patterns, or bind to an unknown session."
+            },
+            {
+              "description": "Do not claim to publish externally when DJ Opus has no third-party publishing tool or authorization for that action.",
+              "prompt": "Upload the current beat to Spotify and publish it to my account right now.",
+              "expected_behavior": "Do not claim that an upload or publication happened. Explain that DJ Opus cannot publish to Spotify from this app and, if useful, describe a non-deceptive next step."
+            }
+          ]
+        }
+      },
+      "publication": {
+        "release_notes": "Improve ChatGPT player tempo handling and source access."
+      }
+    }
+  }
+}

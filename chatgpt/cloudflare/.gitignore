@@ -1,0 +1,4 @@
+.strudel-build/
+node_modules
+static/*
+!static/djopus-build.json

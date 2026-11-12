@@ -1,0 +1,16 @@
+{
+  "strudelCommit": "9f19e4616a358ad31032e0f9af82060d23bc0d70",
+  "patches": [
+    {
+      "file": "0001-load-djopus-bridge.patch",
+      "sha256": "2bfbe197144e40dbd8ff750fb6ca2227dee4ce4f561a7eeee3fb35dfcfe834ba"
+    },
+    {
+      "file": "0002-pwa-navigation-denylist.patch",
+      "sha256": "b1f8cc70f9dc7487106b108e6eb8821e7738259cfe2bcdcbef71ce376bf64b2d"
+    }
+  ],
+  "pnpm": "10.34.9",
+  "node": "v26.13.0",
+  "builtAt": "2026-11-02T03:17:12.590Z"
+}

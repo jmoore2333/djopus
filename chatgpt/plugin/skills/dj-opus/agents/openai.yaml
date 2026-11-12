@@ -1,0 +1,7 @@
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "djopus"
+      description: "DJ Opus inline player and live music tools"
+      transport: "streamable_http"
+      url: "https://chatgpt.djopus.party/mcp"

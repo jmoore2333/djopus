@@ -1,0 +1,175 @@
+[
+  {
+    "name": "4am-donato-dozzy",
+    "content": "// DJ OPUS - 4AM DONATO DOZZY\n// Hypnotic. Underwater. Two or three sounds filling the spectrum.\n// Less is more. Patience.\nsetcps(124/60/4)\n\nlet drift = slider(0.4, 0, 0.7, 0.01, \"DRIFT\")\nlet depth = slider(0.5, 0, 1, 0.01, \"DEPTH\")\n\n// Kick - 808 softened into the room\nlet kick = s(\"bd\").bank(\"RolandTR808\")\n  .gain(0.75)\n  .struct(\"x ~ ~ ~ x ~ ~ ~  x ~ ~ x ~ ~ ~ ~\")\n  .room(0.5)\n  .size(0.7)\n\n// Hat - blurred outward, long tails\nlet hat = s(\"hh\").bank(\"RolandTR808\")\n  .gain(0.18)\n  .struct(\"~ ~ x ~ ~ x ~ ~  ~ x ~ ~ x ~ ~ x\")\n  .room(0.7)\n  .size(0.8)\n  .delay(0.3)\n  .delaytime(3/16)\n  .delayfeedback(0.4)\n  .cutoff(perlin.range(1500, 4000).slow(32))\n\n// Deep bass - one note, slow filter drift, never repeats\nlet bass = note(\"a1\")\n  .s(\"sawtooth\")\n  .cutoff(perlin.range(120, 800).slow(32))\n  .resonance(8)\n  .decay(0.4)\n  .sustain(0.15)\n  .gain(depth)\n  .struct(\"x ~ x ~ ~ x ~ x  ~ x ~ ~ x ~ x ~\")\n\n// Sub - just weight\nlet sub = note(\"a0\")\n  .s(\"sine\")\n  .gain(0.4)\n  .struct(\"x ~ ~ ~ x ~ ~ ~  x ~ ~ x ~ ~ ~ ~\")\n  .decay(0.8)\n  .sustain(0.1)\n\n// The wash - one long sawtooth drone, barely moving\nlet wash = note(\"[a2,e3]\")\n  .s(\"sawtooth\")\n  .cutoff(perlin.range(150, 600).slow(64))\n  .resonance(3)\n  .attack(4)\n  .decay(6)\n  .sustain(0.3)\n  .release(4)\n  .gain(drift)\n  .room(0.95)\n  .size(0.98)\n\nstack(kick, hat, bass, sub, wash)",
+    "tags": [
+      "minimal",
+      "hypnotic",
+      "dozzy",
+      "4am",
+      "underwater"
+    ]
+  },
+  {
+    "name": "acid-303-bass",
+    "content": "// PATTERN BANK: Acid 303 Bass\n// Classic squelchy acid line for breakdowns\nsetcps(138/60/4)\nlet acidFilter = slider(800, 200, 4000, 10, \"ACID Filter\")\nlet acidRes = slider(18, 5, 25, 0.5, \"ACID Resonance\")\nlet acidVol = slider(0.6, 0, 1, 0.01, \"ACID Volume\")\n\nlet acid = note(\"<a2 a2 c3 a2 e2 e2 g2 e2>\")\n  .s(\"sawtooth\")\n  .cutoff(sine.range(300, acidFilter).fast(2))\n  .resonance(acidRes)\n  .decay(0.15)\n  .sustain(0)\n  .gain(acidVol)\n  .struct(\"x x [x x] x x [~ x] x x\")\n\nlet kick = s(\"bd\").bank(\"RolandTR909\").gain(1.1).struct(\"x x x x\")\nlet hats = s(\"hh\").bank(\"RolandTR909\").gain(0.4).struct(\"~ x ~ x ~ x ~ x\")\n\nstack(kick, hats, acid)",
+    "tags": [
+      "trance",
+      "acid",
+      "bass",
+      "303",
+      "building-block"
+    ]
+  },
+  {
+    "name": "acid-euphoria-drop",
+    "content": "// DJ OPUS - SECTION 6: SECOND DROP - ACID EUPHORIA\n// Everything at once. 303 meets diva meets galactic pads.\nsetcps(138/60/4)\n\nlet masterFilter = slider(3000, 500, 12000, 10, \"MASTER Filter\")\nlet acidIntensity = slider(0.5, 0, 0.8, 0.01, \"ACID Intensity\")\nlet divaVol = slider(0.4, 0, 0.7, 0.01, \"DIVA Voice\")\nlet leadVol = slider(0.35, 0, 0.6, 0.01, \"LEAD Melody\")\n\n// KICK - full power\nlet kick = s(\"bd\").bank(\"RolandTR909\")\n  .gain(1.15)\n  .struct(\"x x x x\")\n\n// CLAP\nlet clap = s(\"cp\").bank(\"RolandTR909\")\n  .gain(0.75)\n  .struct(\"~ x ~ x\")\n  .room(0.25)\n\n// HATS - driving\nlet hats = s(\"hh\").bank(\"RolandTR909\")\n  .gain(0.45)\n  .struct(\"~ x ~ x ~ x ~ x\")\n  .cutoff(masterFilter)\n\n// OPEN HAT\nlet oh = s(\"oh\").bank(\"RolandTR909\")\n  .gain(0.35)\n  .struct(\"~ ~ ~ ~ ~ ~ x ~\")\n\n// ACID 303 - squelching underneath\nlet acid = note(\"<a2 a2 c3 a2 e2 e2 g2 e2>\")\n  .s(\"sawtooth\")\n  .cutoff(sine.range(300, 3000).fast(2))\n  .resonance(20)\n  .decay(0.15)\n  .sustain(0)\n  .gain(acidIntensity)\n  .struct(\"x x [x x] x x [~ x] x x\")\n\n// DIVA - voice oohs soaring above\nlet diva = note(\"<[a3,e4] [e3,b3] [f3,c4] [d3,a3]>\".slow(2))\n  .s(\"gm_voice_oohs\")\n  .gain(divaVol)\n  .room(0.85)\n  .size(0.9)\n  .vowel(\"<a e i o>\".slow(4))\n\n// SYNTH CHOIR - backing\nlet choir = note(\"<[a3,c4,e4] [e3,g3,b3] [f3,a3,c4] [d3,f3,a3]>\".slow(2))\n  .s(\"gm_synth_choir\")\n  .gain(divaVol.mul(0.5))\n  .room(0.8)\n\n// GALACTIC PAD - still holding it all together\nlet galactic = note(\"<[a2,e3,a3] [e2,b2,e3] [f2,c3,f3] [d2,a2,d3]>\".slow(2))\n  .s(\"gm_pad_sweep\")\n  .gain(0.25)\n  .cutoff(perlin.range(400, 2500).slow(16))\n  .room(0.9)\n  .size(0.95)\n\n// LEAD - emotional supersaw melody\nlet lead = note(\"a4 ~ c5 ~ e5 ~ a5 e5 ~ c5 a4 ~ e4 ~ a4 ~\")\n  .s(\"sawtooth\")\n  .superimpose(x => x.add(0.08))\n  .superimpose(x => x.add(-0.08))\n  .cutoff(masterFilter)\n  .resonance(4)\n  .decay(0.4)\n  .sustain(0.15)\n  .gain(leadVol)\n  .delay(0.4)\n  .delaytime(3/8)\n  .delayfeedback(0.35)\n  .room(0.6)\n  .jux(rev)\n\n// CRASH\nlet crash = s(\"oh\").bank(\"RolandTR909\")\n  .speed(0.4)\n  .gain(0.45)\n  .room(0.9)\n  .struct(\"x ~ ~ ~ ~ ~ ~ ~\")\n  .slow(4)\n\nstack(kick, clap, hats, oh, acid, diva, choir, galactic, lead, crash)",
+    "tags": [
+      "trance",
+      "drop",
+      "acid",
+      "euphoria",
+      "peak"
+    ]
+  },
+  {
+    "name": "breakdown-void",
+    "content": "// DJ OPUS - SECTION 4: THE BREAKDOWN\n// Everything drops out. Just the voice and the void.\nsetcps(138/60/4)\n\nlet breakFilter = slider(800, 200, 8000, 10, \"BREAK Filter\")\nlet divaSwell = slider(0.5, 0, 0.7, 0.01, \"DIVA Swell\")\n\n// Diva voice - exposed, emotional\nlet diva = note(\"<[a3,e4] [f3,c4] [d3,a3] [e3,b3]>\".slow(4))\n  .s(\"gm_voice_oohs\")\n  .gain(divaSwell)\n  .room(0.95)\n  .size(0.95)\n  .cutoff(breakFilter)\n  .vowel(\"<a e i o>\".slow(8))\n\n// Pad sweep - vast emptiness\nlet sweep = note(\"<[a2,e3,a3] [f2,c3,f3] [d2,a2,d3] [e2,b2,e3]>\".slow(4))\n  .s(\"gm_pad_sweep\")\n  .gain(0.3)\n  .cutoff(perlin.range(300, 2000).slow(16))\n  .room(1)\n  .size(1)\n\n// Crystal fx - distant stars\nlet crystal = note(\"a5 ~ ~ ~ e5 ~ ~ ~\".slow(2))\n  .s(\"gm_fx_crystal\")\n  .gain(0.1)\n  .delay(0.7)\n  .delaytime(0.5)\n  .delayfeedback(0.6)\n  .room(1)\n\n// Atmosphere halo\nlet halo = note(\"<a4 f4 d4 e4>\".slow(4))\n  .s(\"gm_pad_halo\")\n  .gain(0.2)\n  .room(0.95)\n  .size(0.95)\n\nstack(diva, sweep, crystal, halo)",
+    "tags": [
+      "trance",
+      "breakdown",
+      "diva",
+      "atmospheric"
+    ]
+  },
+  {
+    "name": "closing-set",
+    "content": "// DJ OPUS - CLOSING SET\n// Last track of the night. Stars overhead.\nsetcps(118/60/4)\n\nlet depth = slider(0.4, 0, 0.7, 0.01, \"DEPTH\")\nlet fade = slider(0.5, 0, 1, 0.01, \"FADE\")\n\n// No kick. Just the wash.\nlet sub = note(\"<a1 e1>\".slow(8))\n  .s(\"sine\")\n  .gain(0.3)\n  .decay(2)\n  .sustain(0.2)\n\n// Pad - barely there, breathing\nlet pad = note(\"<[a2,e3] [e2,b2]>\".slow(8))\n  .s(\"sawtooth\")\n  .cutoff(perlin.range(200, 900).slow(32))\n  .resonance(3)\n  .attack(3)\n  .decay(4)\n  .sustain(0.4)\n  .release(4)\n  .gain(depth)\n  .room(0.95)\n  .size(0.98)\n\n// Voice texture - slow vowel drift\nlet voice = note(\"<a3 e3>\".slow(8))\n  .s(\"sawtooth\")\n  .vowel(\"<a o u>\".slow(16))\n  .cutoff(perlin.range(300, 1000).slow(32))\n  .resonance(5)\n  .attack(2)\n  .decay(3)\n  .sustain(0.3)\n  .release(3)\n  .gain(depth)\n  .room(0.95)\n  .size(0.98)\n\n// One note. Long delay. Fading.\nlet note1 = note(\"~ ~ ~ a4 ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\".slow(4))\n  .s(\"triangle\")\n  .cutoff(1200)\n  .decay(1.5)\n  .sustain(0)\n  .gain(fade)\n  .delay(0.6)\n  .delaytime(1)\n  .delayfeedback(0.6)\n  .room(0.9)\n\nstack(sub, pad, voice, note1)",
+    "tags": [
+      "ambient",
+      "closing",
+      "chill",
+      "late-night"
+    ]
+  },
+  {
+    "name": "drop-v1-raw",
+    "content": "// DJ OPUS - EPIC TRANCE SET\n// Section 3: THE DROP - Full Euphoria\nsetcps(138/60/4)\n\n// === YOUR SLIDERS ===\nlet masterVol = slider(0.8, 0, 1, 0.01, \"MASTER Volume\")\nlet choirVol = slider(0.8, 0, 0.8, 0.01, \"DIVA CHOIR\")\nlet leadVol = slider(0.5, 0, 0.8, 0.01, \"SUPERSAW Lead\")\nlet filterOpen = slider(4000, 500, 12000, 10, \"FILTER Open\")\nlet stereoWidth = slider(0.5, 0, 1, 0.01, \"STEREO Width\")\nlet energy = slider(0.7, 0, 1, 0.01, \"ENERGY Level\")\n\n// KICK - full power four on the floor\nlet kick = s(\"bd\").bank(\"RolandTR909\")\n  .gain(1.2)\n  .struct(\"x x x x\")\n\n// CLAP on 2 and 4\nlet clap = s(\"cp\").bank(\"RolandTR909\")\n  .gain(0.8)\n  .struct(\"~ x ~ x\")\n  .room(0.25)\n\n// OFFBEAT HATS - driving\nlet hats = s(\"hh\").bank(\"RolandTR909\")\n  .gain(energy.mul(0.6))\n  .struct(\"~ x ~ x ~ x ~ x\")\n  .cutoff(filterOpen)\n\n// OPEN HAT accents\nlet oh = s(\"oh\").bank(\"RolandTR909\")\n  .gain(0.4)\n  .struct(\"~ ~ ~ ~ ~ ~ x ~\")\n\n// SUPERSAW BASS - fat rolling line\nlet bass = note(\"<a2 a2 e2 e2 f2 f2 d2 d2>\")\n  .s(\"sawtooth\")\n  .superimpose(x => x.add(0.08))\n  .cutoff(sine.range(400, 2200).slow(4))\n  .resonance(14)\n  .decay(0.2)\n  .sustain(0.08)\n  .gain(energy.mul(0.7))\n  .struct(\"x ~ x x ~ x x ~\")\n\n// DIVA CHOIR - the moment\nlet choir = note(\"<[a3,e4,c5] [e3,b3,g4] [f3,c4,a4] [d3,a3,f4]>\".slow(2))\n  .s(\"gm_choir_aahs\")\n  .gain(choirVol)\n  .cutoff(filterOpen)\n  .room(0.85)\n  .size(0.9)\n  .vowel(\"<a e i o>\".slow(4))\n\n// SUPERSAW LEAD - euphoric melody\nlet lead = note(\"a4 ~ c5 e5 ~ a5 e5 c5\")\n  .s(\"sawtooth\")\n  .superimpose(x => x.add(0.1))\n  .superimpose(x => x.add(-0.1))\n  .cutoff(filterOpen)\n  .resonance(6)\n  .decay(0.3)\n  .sustain(0.15)\n  .gain(leadVol)\n  .delay(0.4)\n  .delaytime(3/16)\n  .delayfeedback(0.45)\n  .room(0.5)\n  .jux(rev)\n\n// TRANCE ARP - cascading\nlet arp = note(\"a4 c5 e5 a5 c6 a5 e5 c5\")\n  .s(\"triangle\")\n  .cutoff(filterOpen.mul(0.8))\n  .resonance(12)\n  .decay(0.1)\n  .sustain(0)\n  .gain(energy.mul(0.3))\n  .delay(0.5)\n  .delaytime(3/16)\n  .delayfeedback(0.55)\n  .room(0.4)\n\n// PAD - wide atmospheric bed\nlet pad = note(\"<[a3,e4] [e3,b3] [f3,c4] [d3,a3]>\".slow(2))\n  .s(\"sawtooth\")\n  .superimpose(x => x.add(0.05))\n  .cutoff(filterOpen.mul(0.6))\n  .resonance(5)\n  .attack(1.2)\n  .decay(2)\n  .sustain(0.5)\n  .release(2)\n  .gain(0.25)\n  .room(0.9)\n  .size(0.95)\n\n// CRASH on beat 1 every 4 bars\nlet crash = s(\"oh\").bank(\"RolandTR909\")\n  .speed(0.5)\n  .gain(0.5)\n  .room(0.8)\n  .struct(\"x ~ ~ ~ ~ ~ ~ ~\")\n  .slow(4)\n\nstack(kick, clap, hats, oh, bass, choir, lead, arp, pad, crash)\n  .gain(masterVol)",
+    "tags": [
+      "trance",
+      "drop",
+      "v1"
+    ]
+  },
+  {
+    "name": "epic-breakdown",
+    "content": "// PATTERN BANK: Epic Breakdown\n// Strip everything, just pads and diva, slow build\nsetcps(138/60/4)\nlet breakFilter = slider(600, 200, 6000, 10, \"BREAK Filter Open\")\nlet divaBreak = slider(0.4, 0, 0.7, 0.01, \"DIVA Swell\")\nlet tension = slider(0, 0, 1, 0.01, \"TENSION Build\")\n\nlet diva = note(\"<[a3,e4] [f3,c4] [d3,a3] [e3,b3]>\".slow(4))\n  .s(\"gm_voice_oohs\")\n  .gain(divaBreak)\n  .room(0.95)\n  .size(0.95)\n  .cutoff(breakFilter)\n  .vowel(\"<a e i o>\".slow(8))\n\nlet sweep = note(\"<a2 f2 d2 e2>\".slow(4))\n  .s(\"gm_pad_sweep\")\n  .gain(0.35)\n  .cutoff(perlin.range(300, breakFilter).slow(16))\n  .room(1)\n  .size(1)\n\nlet crystal = note(\"a5 ~ ~ ~ e5 ~ ~ ~\".slow(2))\n  .s(\"gm_fx_crystal\")\n  .gain(0.12)\n  .delay(0.7)\n  .delaytime(0.5)\n  .delayfeedback(0.6)\n  .room(1)\n\nlet snareRoll = s(\"sd\").bank(\"RolandTR909\")\n  .gain(tension.mul(0.5))\n  .struct(\"x x x x x x x x\")\n  .room(0.5)\n\nstack(diva, sweep, crystal, snareRoll)",
+    "tags": [
+      "trance",
+      "breakdown",
+      "diva",
+      "atmospheric",
+      "building-block"
+    ]
+  },
+  {
+    "name": "galactic-euphoria-drop",
+    "content": "// DJ OPUS - SECTION 3: GALACTIC EUPHORIA\n// Robert Miles x ATB x Adagio vibes\nsetcps(138/60/4)\n\n// === SLIDERS ===\nlet divaVol = slider(0, 0, 0.7, 0.01, \"DIVA Voice\")\nlet padDepth = slider(0.3, 0, 0.7, 0.01, \"PAD Depth\")\nlet sweepFilter = slider(1200, 200, 8000, 10, \"SWEEP Filter\")\nlet leadVol = slider(0, 0, 0.6, 0.01, \"LEAD Melody\")\nlet bassVol = slider(0.5, 0, 0.8, 0.01, \"BASS Drive\")\nlet atmosphere = slider(0.7, 0, 1, 0.01, \"ATMOSPHERE\")\n\n// KICK - solid foundation\nlet kick = s(\"bd\").bank(\"RolandTR909\")\n  .gain(1.1)\n  .struct(\"x x x x\")\n\n// CLAP\nlet clap = s(\"cp\").bank(\"RolandTR909\")\n  .gain(0.7)\n  .struct(\"~ x ~ x\")\n  .room(0.3)\n\n// HATS - subtle offbeat\nlet hats = s(\"hh\").bank(\"RolandTR909\")\n  .gain(0.4)\n  .struct(\"~ x ~ x ~ x ~ x\")\n  .cutoff(3000)\n\n// DIVA VOICE - voice oohs, slow and wide\nlet diva = note(\"<[a3,e4] [e3,b3] [f3,c4] [d3,a3]>\".slow(4))\n  .s(\"gm_voice_oohs\")\n  .gain(divaVol)\n  .room(0.9)\n  .size(0.95)\n  .cutoff(sweepFilter)\n\n// SYNTH CHOIR - layered underneath\nlet choir = note(\"<[a3,c4,e4] [e3,g3,b3] [f3,a3,c4] [d3,f3,a3]>\".slow(4))\n  .s(\"gm_synth_choir\")\n  .gain(divaVol.mul(0.6))\n  .room(0.85)\n  .size(0.9)\n\n// GALACTIC PAD - massive sweep pad\nlet galacticPad = note(\"<[a2,e3,a3] [e2,b2,e3] [f2,c3,f3] [d2,a2,d3]>\".slow(4))\n  .s(\"gm_pad_sweep\")\n  .gain(padDepth)\n  .cutoff(perlin.range(400, 3000).slow(16))\n  .room(atmosphere)\n  .size(atmosphere)\n\n// HALO PAD - ethereal upper layer\nlet haloPad = note(\"<a4 e4 f4 d4>\".slow(4))\n  .s(\"gm_pad_halo\")\n  .gain(padDepth.mul(0.4))\n  .room(0.95)\n  .size(0.95)\n  .cutoff(sweepFilter)\n\n// DEEP BASS - sawtooth with organic filter drift\nlet bass = note(\"<a1 a1 e1 e1 f1 f1 d1 d1>\")\n  .s(\"sawtooth\")\n  .cutoff(perlin.range(200, 1200).slow(8))\n  .resonance(10)\n  .decay(0.25)\n  .sustain(0.1)\n  .gain(bassVol)\n  .struct(\"x ~ x x ~ x x ~\")\n\n// LEAD - simple, emotional, low in the mix\nlet lead = note(\"~ a4 ~ e4 ~ c5 ~ a4\")\n  .s(\"sawtooth\")\n  .superimpose(x => x.add(0.08))\n  .superimpose(x => x.add(-0.08))\n  .cutoff(sweepFilter)\n  .resonance(4)\n  .decay(0.5)\n  .sustain(0.2)\n  .gain(leadVol)\n  .delay(0.45)\n  .delaytime(3/8)\n  .delayfeedback(0.4)\n  .room(0.7)\n\n// ATMOSPHERE FX - distant sparkle\nlet fx = note(\"a5 ~ ~ e5 ~ ~ c5 ~\".slow(2))\n  .s(\"gm_fx_crystal\")\n  .gain(atmosphere.mul(0.15))\n  .room(1)\n  .size(1)\n  .delay(0.6)\n  .delaytime(0.5)\n  .delayfeedback(0.5)\n\nstack(kick, clap, hats, diva, choir, galacticPad, haloPad, bass, lead, fx)\n",
+    "tags": [
+      "trance",
+      "drop",
+      "galactic",
+      "epic"
+    ]
+  },
+  {
+    "name": "late-night-drift",
+    "content": "// DJ OPUS - LATE NIGHT DRIFT\n// Chill trance. Easy on the ears. Let it wash over you.\nsetcps(130/60/4)\n\n// Just two sliders - keep it simple\nlet depth = slider(0.5, 0, 1, 0.01, \"DEPTH\")\nlet warmth = slider(0.4, 0, 0.7, 0.01, \"WARMTH\")\n\n// Soft kick - not punchy, just presence\nlet kick = s(\"bd\").bank(\"RolandTR808\")\n  .gain(0.7)\n  .struct(\"x ~ x ~ x ~ x ~\")\n\n// Gentle closed hat\nlet hat = s(\"hh\").bank(\"RolandTR808\")\n  .gain(0.2)\n  .struct(\"~ x ~ x ~ x ~ x\")\n  .cutoff(2500)\n\n// Deep sub bass - minimal movement\nlet sub = note(\"<a1 a1 e1 e1>\".slow(4))\n  .s(\"sine\")\n  .gain(0.5)\n  .decay(1)\n  .sustain(0.3)\n\n// Warm pad - slow breathing filter\nlet pad = note(\"<[a2,e3,a3] [e2,b2,e3] [f2,c3,f3] [e2,b2,e3]>\".slow(8))\n  .s(\"sawtooth\")\n  .cutoff(perlin.range(300, 1500).slow(32))\n  .resonance(4)\n  .attack(2)\n  .decay(3)\n  .sustain(0.6)\n  .release(3)\n  .gain(warmth)\n  .room(0.9)\n  .size(0.95)\n\n// Vocal texture - vowel filter, no samples needed\nlet voicePad = note(\"<[a3,c4] [e3,g3] [f3,a3] [e3,g3]>\".slow(8))\n  .s(\"sawtooth\")\n  .vowel(\"<a e i o u>\".slow(16))\n  .cutoff(perlin.range(400, 1800).slow(24))\n  .resonance(6)\n  .attack(1.5)\n  .decay(2)\n  .sustain(0.5)\n  .release(2)\n  .gain(depth)\n  .room(0.95)\n  .size(0.95)\n\n// Melody - sparse, floating, lots of space\nlet melody = note(\"~ a4 ~ ~ e4 ~ ~ ~ ~ c5 ~ ~ ~ a4 ~ ~\".slow(2))\n  .s(\"triangle\")\n  .cutoff(1800)\n  .decay(0.8)\n  .sustain(0.05)\n  .gain(0.25)\n  .delay(0.5)\n  .delaytime(3/4)\n  .delayfeedback(0.5)\n  .room(0.7)\n\nstack(kick, hat, sub, pad, voicePad, melody)",
+    "tags": [
+      "trance",
+      "chill",
+      "ambient",
+      "downtempo",
+      "headache-friendly"
+    ]
+  },
+  {
+    "name": "mega-mix-controller",
+    "content": "// DJ OPUS - THE MEGA MIX\n// One pattern to rule them all. YOU control the transitions.\n// Breakdown -> Rise -> Drop all lives here. Ride the sliders.\nsetcps(138/60/4)\n\n// === SECTION CONTROLS ===\nlet kickVol = slider(0, 0, 1, 0.01, \"KICK\")\nlet bassVol = slider(0, 0, 0.7, 0.01, \"BASS\")\nlet hatVol = slider(0, 0, 0.6, 0.01, \"HATS\")\nlet clapVol = slider(0, 0, 0.7, 0.01, \"CLAP\")\nlet acidVol = slider(0, 0, 0.7, 0.01, \"ACID 303\")\nlet leadVol = slider(0, 0, 0.5, 0.01, \"LEAD\")\nlet padVol = slider(0.3, 0, 0.6, 0.01, \"PAD\")\nlet sweepFilter = slider(1200, 200, 12000, 10, \"FILTER SWEEP\")\n\n// KICK - four on the floor\nlet kick = s(\"bd\").bank(\"RolandTR909\")\n  .gain(kickVol)\n  .struct(\"x x x x\")\n\n// CLAP on 2 and 4\nlet clap = s(\"cp\").bank(\"RolandTR909\")\n  .gain(clapVol)\n  .struct(\"~ x ~ x\")\n  .room(0.25)\n\n// OFFBEAT HATS\nlet hats = s(\"hh\").bank(\"RolandTR909\")\n  .gain(hatVol)\n  .struct(\"~ x ~ x ~ x ~ x\")\n\n// OPEN HAT accent\nlet oh = s(\"oh\").bank(\"RolandTR909\")\n  .gain(hatVol)\n  .struct(\"~ ~ ~ ~ ~ ~ x ~\")\n\n// DEEP BASS - rolling sawtooth with organic drift\nlet bass = note(\"<a2 a2 e2 e2 f2 f2 d2 d2>\")\n  .s(\"sawtooth\")\n  .cutoff(perlin.range(200, 1800).slow(8))\n  .resonance(12)\n  .decay(0.25)\n  .sustain(0.08)\n  .gain(bassVol)\n  .struct(\"x ~ x x ~ x x ~\")\n\n// ACID 303 - squelchy\nlet acid = note(\"<a2 a2 c3 a2 e2 e2 g2 e2>\")\n  .s(\"sawtooth\")\n  .cutoff(sine.range(300, 3000).fast(2))\n  .resonance(20)\n  .decay(0.15)\n  .sustain(0)\n  .gain(acidVol)\n  .struct(\"x x [x x] x x [~ x] x x\")\n\n// PAD SWEEP - galactic bed\nlet pad = note(\"<[a2,e3,a3] [e2,b2,e3] [f2,c3,f3] [d2,a2,d3]>\".slow(2))\n  .s(\"sawtooth\")\n  .cutoff(perlin.range(400, 2500).slow(16))\n  .resonance(6)\n  .attack(1.2)\n  .decay(2)\n  .sustain(0.5)\n  .release(2)\n  .gain(padVol)\n  .room(0.9)\n  .size(0.95)\n\n// VOCAL PAD - sawtooth with vowel filter for diva texture\nlet vocalPad = note(\"<[a3,e4] [e3,b3] [f3,c4] [d3,a3]>\".slow(2))\n  .s(\"sawtooth\")\n  .vowel(\"<a e i o>\".slow(4))\n  .cutoff(sweepFilter)\n  .resonance(8)\n  .attack(0.8)\n  .decay(1.5)\n  .sustain(0.6)\n  .release(2)\n  .gain(padVol)\n  .room(0.85)\n  .size(0.9)\n\n// LEAD - emotional supersaw\nlet lead = note(\"a4 ~ c5 ~ e5 ~ a5 e5 ~ c5 a4 ~ e4 ~ a4 ~\")\n  .s(\"sawtooth\")\n  .superimpose(x => x.add(0.08))\n  .superimpose(x => x.add(-0.08))\n  .cutoff(sweepFilter)\n  .resonance(4)\n  .decay(0.4)\n  .sustain(0.15)\n  .gain(leadVol)\n  .delay(0.4)\n  .delaytime(3/8)\n  .delayfeedback(0.35)\n  .room(0.6)\n  .jux(rev)\n\n// CRYSTAL FX - distant sparkle always present\nlet crystal = note(\"a5 ~ ~ ~ e5 ~ ~ ~\".slow(2))\n  .s(\"gm_fx_crystal\")\n  .gain(0.08)\n  .delay(0.7)\n  .delaytime(0.5)\n  .delayfeedback(0.5)\n  .room(1)\n\nstack(kick, clap, hats, oh, bass, acid, pad, vocalPad, lead, crystal)",
+    "tags": [
+      "trance",
+      "mega",
+      "live",
+      "sliders",
+      "full-set"
+    ]
+  },
+  {
+    "name": "megamix-v2-robert-miles",
+    "content": "// DJ OPUS - MEGA MIX v2\n// Robert Miles - Children vibes. Clean. Dreamy. Space.\n// All transitions via sliders. No hard cuts.\nsetcps(138/60/4)\n\n// === YOUR DECK ===\nlet kickVol = slider(0.8, 0, 1.1, 0.01, \"KICK\")\nlet bassVol = slider(0.4, 0, 0.7, 0.01, \"BASS\")\nlet hatVol = slider(0.3, 0, 0.5, 0.01, \"HATS\")\nlet pianoVol = slider(0.4, 0, 0.6, 0.01, \"PIANO Lead\")\nlet padVol = slider(0.3, 0, 0.5, 0.01, \"PAD Depth\")\nlet sweepFilter = slider(2000, 200, 10000, 10, \"FILTER SWEEP\")\nlet acidVol = slider(0, 0, 0.6, 0.01, \"ACID 303\")\nlet delayMix = slider(0.3, 0, 0.7, 0.01, \"DELAY Wash\")\n\n// KICK - clean four on the floor\nlet kick = s(\"bd\").bank(\"RolandTR909\")\n  .gain(kickVol)\n  .struct(\"x x x x\")\n\n// CLAP - subtle\nlet clap = s(\"cp\").bank(\"RolandTR909\")\n  .gain(0.5)\n  .struct(\"~ x ~ x\")\n  .room(0.2)\n\n// HATS - gentle offbeat\nlet hats = s(\"hh\").bank(\"RolandTR909\")\n  .gain(hatVol)\n  .struct(\"~ x ~ x ~ x ~ x\")\n\n// BASS - simple, deep, rolling\nlet bass = note(\"<a1 a1 e1 e1 f1 f1 d1 d1>\".slow(2))\n  .s(\"sawtooth\")\n  .cutoff(perlin.range(200, 1200).slow(8))\n  .resonance(10)\n  .decay(0.3)\n  .sustain(0.1)\n  .gain(bassVol)\n\n// PIANO LEAD - the Robert Miles moment\n// Dreamy melody with delay, lots of space\nlet piano = note(\"a4 ~ e5 c5 ~ ~ a4 ~ ~ e4 a4 c5 ~ e5 ~ ~\".slow(2))\n  .s(\"triangle\")\n  .cutoff(sweepFilter)\n  .resonance(2)\n  .attack(0.01)\n  .decay(0.6)\n  .sustain(0.1)\n  .gain(pianoVol)\n  .delay(delayMix)\n  .delaytime(3/8)\n  .delayfeedback(0.45)\n  .room(0.6)\n\n// PAD - warm sawtooth bed, simple\nlet pad = note(\"<[a2,e3] [e2,b2] [f2,c3] [d2,a2]>\".slow(4))\n  .s(\"sawtooth\")\n  .cutoff(perlin.range(300, 2000).slow(16))\n  .resonance(5)\n  .attack(1.5)\n  .decay(2)\n  .sustain(0.5)\n  .release(2)\n  .gain(padVol)\n  .room(0.85)\n  .size(0.9)\n\n// ACID - bring in when you want edge\nlet acid = note(\"<a2 a2 c3 a2 e2 e2 g2 e2>\")\n  .s(\"sawtooth\")\n  .cutoff(sine.range(300, 2500).fast(2))\n  .resonance(18)\n  .decay(0.15)\n  .sustain(0)\n  .gain(acidVol)\n  .struct(\"x x [x x] x x [~ x] x x\")\n\nstack(kick, clap, hats, bass, piano, pad, acid)\n",
+    "tags": [
+      "trance",
+      "megamix",
+      "robert-miles",
+      "dreamy",
+      "children"
+    ]
+  },
+  {
+    "name": "megamix-v3-with-vocals",
+    "content": "// DJ OPUS - MEGA MIX v3\n// Robert Miles vibes + real vocals\nsetcps(138/60/4)\n\nsamples('shabda:choir:6,vocal:4,diva:4,female voice:3')\n\n// === YOUR DECK ===\nlet kickVol = slider(0.8, 0, 1.1, 0.01, \"KICK\")\nlet bassVol = slider(0.4, 0, 0.7, 0.01, \"BASS\")\nlet hatVol = slider(0.3, 0, 0.5, 0.01, \"HATS\")\nlet pianoVol = slider(0.4, 0, 0.6, 0.01, \"PIANO Lead\")\nlet padVol = slider(0.3, 0, 0.5, 0.01, \"PAD Depth\")\nlet sweepFilter = slider(2000, 200, 10000, 10, \"FILTER SWEEP\")\nlet vocalVol = slider(0.4, 0, 0.8, 0.01, \"VOCALS\")\nlet delayMix = slider(0.3, 0, 0.7, 0.01, \"DELAY Wash\")\n\n// KICK\nlet kick = s(\"bd\").bank(\"RolandTR909\")\n  .gain(kickVol)\n  .struct(\"x x x x\")\n\n// CLAP\nlet clap = s(\"cp\").bank(\"RolandTR909\")\n  .gain(0.5)\n  .struct(\"~ x ~ x\")\n  .room(0.2)\n\n// HATS\nlet hats = s(\"hh\").bank(\"RolandTR909\")\n  .gain(hatVol)\n  .struct(\"~ x ~ x ~ x ~ x\")\n\n// BASS\nlet bass = note(\"<a1 a1 e1 e1 f1 f1 d1 d1>\".slow(2))\n  .s(\"sawtooth\")\n  .cutoff(perlin.range(200, 1200).slow(8))\n  .resonance(10)\n  .decay(0.3)\n  .sustain(0.1)\n  .gain(bassVol)\n\n// PIANO LEAD - dreamy\nlet piano = note(\"a4 ~ e5 c5 ~ ~ a4 ~ ~ e4 a4 c5 ~ e5 ~ ~\".slow(2))\n  .s(\"triangle\")\n  .cutoff(sweepFilter)\n  .resonance(2)\n  .attack(0.01)\n  .decay(0.6)\n  .sustain(0.1)\n  .gain(pianoVol)\n  .delay(delayMix)\n  .delaytime(3/8)\n  .delayfeedback(0.45)\n  .room(0.6)\n\n// PAD - warm bed\nlet pad = note(\"<[a2,e3] [e2,b2] [f2,c3] [d2,a2]>\".slow(4))\n  .s(\"sawtooth\")\n  .cutoff(perlin.range(300, 2000).slow(16))\n  .resonance(5)\n  .attack(1.5)\n  .decay(2)\n  .sustain(0.5)\n  .release(2)\n  .gain(padVol)\n  .room(0.85)\n  .size(0.9)\n\n// CHOIR - slow cycling through samples with reverb\nlet choirVox = s(\"<choir:0 choir:1 choir:2 choir:3 choir:4 choir:5>\".slow(4))\n  .gain(vocalVol)\n  .room(0.9)\n  .size(0.9)\n  .cutoff(sweepFilter)\n  .speed(0.8)\n\n// DIVA - layered on top\nlet divaVox = s(\"<diva:0 diva:1>\".slow(8))\n  .gain(vocalVol)\n  .room(0.85)\n  .size(0.9)\n  .speed(0.7)\n\n// VOCAL hits\nlet vocalHit = s(\"<vocal:0 vocal:1 vocal:2 vocal:3>\".slow(2))\n  .gain(vocalVol)\n  .room(0.7)\n  .delay(0.4)\n  .delaytime(3/8)\n  .delayfeedback(0.35)\n  .speed(0.9)\n\nstack(kick, clap, hats, bass, piano, pad, choirVox, divaVox, vocalHit)\n",
+    "tags": [
+      "trance",
+      "megamix",
+      "vocals",
+      "shabda",
+      "robert-miles"
+    ]
+  },
+  {
+    "name": "progressive-groove",
+    "content": "// PATTERN BANK: Progressive Groove\n// Sasha and Digweed hypnotic minimal groove\nsetcps(132/60/4)\nlet progFilter = slider(1500, 200, 5000, 10, \"PROG Filter\")\nlet groove = slider(0.6, 0, 1, 0.01, \"GROOVE Depth\")\n\nlet kick = s(\"bd\").bank(\"RolandTR909\").gain(0.9).struct(\"x x x x\")\nlet rim = s(\"sd\").bank(\"RolandTR909\").gain(0.25).struct(\"~ [~ x] ~ ~\").speed(1.5)\nlet hats = s(\"hh\").bank(\"RolandTR909\").gain(0.35).struct(\"x [x x] x [x x]\").cutoff(4000)\n\nlet bassline = note(\"<c2 c2 c2 eb2 c2 c2 g1 ab1>\")\n  .s(\"sawtooth\")\n  .cutoff(perlin.range(200, progFilter).slow(8))\n  .resonance(12)\n  .decay(0.2)\n  .sustain(0.05)\n  .gain(groove.mul(0.7))\n  .struct(\"x ~ x [~ x] x ~ x ~\")\n\nlet deepPad = note(\"<[c3,g3] [eb3,bb3] [ab2,eb3] [bb2,f3]>\".slow(4))\n  .s(\"gm_pad_sweep\")\n  .gain(groove.mul(0.3))\n  .cutoff(perlin.range(400, 2000).slow(16))\n  .room(0.8)\n  .size(0.85)\n\nstack(kick, rim, hats, bassline, deepPad)",
+    "tags": [
+      "progressive",
+      "sasha",
+      "digweed",
+      "hypnotic",
+      "building-block"
+    ]
+  },
+  {
+    "name": "progressive-outro",
+    "content": "// DJ OPUS - SECTION 7: PROGRESSIVE OUTRO\n// Sasha closing set. Hypnotic. Drifting. Beautiful.\nsetcps(134/60/4)\n\nlet driftFilter = slider(1500, 200, 4000, 10, \"DRIFT Filter\")\nlet fadeOut = slider(0.7, 0, 1, 0.01, \"FADE Level\")\n\n// Kick - softer now\nlet kick = s(\"bd\").bank(\"RolandTR909\")\n  .gain(fadeOut.mul(0.85))\n  .struct(\"x x x x\")\n\n// Minimal hats\nlet hats = s(\"hh\").bank(\"RolandTR909\")\n  .gain(fadeOut.mul(0.3))\n  .struct(\"~ x ~ x ~ x ~ x\")\n  .cutoff(3000)\n\n// Rim click\nlet rim = s(\"sd\").bank(\"RolandTR909\")\n  .gain(fadeOut.mul(0.2))\n  .struct(\"~ [~ x] ~ ~\")\n  .speed(1.5)\n\n// Hypnotic bass - perlin drift, never repeats\nlet bass = note(\"<a2 a2 a2 e2 a2 a2 g2 e2>\")\n  .s(\"sawtooth\")\n  .cutoff(perlin.range(200, driftFilter).slow(8))\n  .resonance(12)\n  .decay(0.2)\n  .sustain(0.05)\n  .gain(fadeOut.mul(0.55))\n  .struct(\"x ~ x [~ x] x ~ x ~\")\n\n// Last diva echo - fading into the distance\nlet divaEcho = note(\"<[a3,e4] [e3,b3]>\".slow(4))\n  .s(\"gm_voice_oohs\")\n  .gain(fadeOut.mul(0.3))\n  .room(1)\n  .size(1)\n  .delay(0.6)\n  .delaytime(0.5)\n  .delayfeedback(0.55)\n  .cutoff(driftFilter)\n\n// Deep pad - last warmth\nlet deepPad = note(\"<[a2,e3] [e2,b2] [a2,e3] [e2,b2]>\".slow(4))\n  .s(\"gm_pad_sweep\")\n  .gain(fadeOut.mul(0.25))\n  .cutoff(perlin.range(300, 1500).slow(16))\n  .room(0.9)\n  .size(0.95)\n\n// Distant crystal - final sparkle\nlet crystal = note(\"a5 ~ ~ ~ ~ ~ ~ ~\".slow(2))\n  .s(\"gm_fx_crystal\")\n  .gain(fadeOut.mul(0.08))\n  .delay(0.8)\n  .delaytime(0.5)\n  .delayfeedback(0.7)\n  .room(1)\n\nstack(kick, hats, rim, bass, divaEcho, deepPad, crystal)",
+    "tags": [
+      "trance",
+      "outro",
+      "progressive",
+      "sasha"
+    ]
+  },
+  {
+    "name": "sasha-twilo-megamix",
+    "content": "// Sasha at Twilo - Late Night Progressive\n// 132 BPM | G minor | Deep, hypnotic, filtered\n\nlet kickVol = slider(0.8, 0, 1, 0.01, \"Kick\")\nlet bassVol = slider(0.6, 0, 1, 0.01, \"Bass\")\nlet hatVol = slider(0.35, 0, 1, 0.01, \"Hats\")\nlet arpVol = slider(0.45, 0, 1, 0.01, \"Arp\")\nlet padVol = slider(0.55, 0, 1, 0.01, \"Pad\")\nlet leadVol = slider(0, 0, 1, 0.01, \"Lead\")\nlet filterPos = slider(1500, 200, 4000, 10, \"Filter\")\n\nsetcps(132/60/4)\n\nlet kick = stack(\n  s(\"bd\").bank(\"RolandTR909\").struct(\"x x x x\"),\n  s(\"cp\").bank(\"RolandTR909\").struct(\"~ x ~ x\")\n).gain(kickVol)\n\nlet bass = note(\"<g2 g2 eb2 eb2 bb2 bb2 f2 f2>\")\n  .struct(\"x ~ [~ x] x ~ x [~ x] ~\")\n  .s(\"sawtooth\")\n  .cutoff(perlin.range(250, 1200).slow(16))\n  .resonance(14)\n  .decay(0.2).sustain(0.08).release(0.3)\n  .gain(bassVol)\n  .room(0.25)\n\nlet hats = s(\"hh*8\").bank(\"RolandTR707\")\n  .gain(hatVol)\n  .room(0.15)\n\nlet arp = note(\"g4 d5 bb4 g5 d5 bb4 f5 d5\")\n  .s(\"triangle\")\n  .cutoff(perlin.range(600, 2800).slow(12))\n  .decay(0.12).sustain(0.03).release(0.35)\n  .delay(0.4).delaytime(3/8).delayfeedback(0.5)\n  .gain(arpVol)\n  .room(0.5)\n\nlet pad = note(\"<[g3,bb3,d4] [g3,bb3,d4] [g3,bb3,eb4] [g3,bb3,eb4] [f3,bb3,d4] [f3,bb3,d4] [f3,a3,c4] [f3,a3,c4]>\")\n  .s(\"sawtooth\")\n  .cutoff(perlin.range(300, 1800).slow(24))\n  .resonance(5)\n  .attack(1.0).decay(0.5).sustain(0.7).release(2.0)\n  .vowel(\"<a a e e i i o o>\")\n  .room(0.85).size(0.9)\n  .jux(rev)\n  .gain(padVol)\n\nlet lead = note(\"g4 ~ bb4 ~ d5 ~ c5 bb4 ~ a4 ~ g4 ~ f4 d4 ~\").slow(2)\n  .s(\"sawtooth\")\n  .superimpose(x => x.add(0.08))\n  .superimpose(x => x.add(-0.08))\n  .cutoff(filterPos)\n  .resonance(8)\n  .decay(0.3).sustain(0.15).release(0.8)\n  .delay(0.4).delaytime(3/8).delayfeedback(0.55)\n  .room(0.7).size(0.8)\n  .jux(rev)\n  .gain(leadVol)\n\nstack(kick, bass, hats, arp, pad, lead)",
+    "tags": [
+      "progressive",
+      "trance",
+      "sasha",
+      "twilo",
+      "deep",
+      "hypnotic",
+      "megamix",
+      "132bpm",
+      "gminor"
+    ]
+  },
+  {
+    "name": "the-rise",
+    "content": "// DJ OPUS - SECTION 5: THE RISE\n// Building from nothing to everything\nsetcps(138/60/4)\n\nlet riseFilter = slider(600, 200, 12000, 10, \"RISE Filter\")\nlet tension = slider(0.2, 0, 1, 0.01, \"TENSION\")\n\n// Diva still holding\nlet diva = note(\"<[a3,e4] [f3,c4] [d3,a3] [e3,b3]>\".slow(2))\n  .s(\"gm_voice_oohs\")\n  .gain(0.45)\n  .room(0.9)\n  .size(0.95)\n  .cutoff(riseFilter)\n  .vowel(\"<a e i o>\".slow(4))\n\n// Synth choir joining\nlet choir = note(\"<[a3,c4,e4] [f3,a3,c4] [d3,f3,a3] [e3,g3,b3]>\".slow(2))\n  .s(\"gm_synth_choir\")\n  .gain(tension.mul(0.4))\n  .room(0.85)\n\n// Snare roll building\nlet snare = s(\"sd\").bank(\"RolandTR909\")\n  .gain(tension.mul(0.6))\n  .struct(\"x x x x x x x x\")\n  .room(0.4)\n\n// Kick ghost hits returning\nlet kickGhost = s(\"bd\").bank(\"RolandTR909\")\n  .gain(tension.mul(0.5))\n  .struct(\"x ~ ~ ~ x ~ ~ ~\")\n\n// Rising pad\nlet risePad = note(\"<a2 f2 d2 e2>\".slow(2))\n  .s(\"gm_pad_sweep\")\n  .gain(tension.mul(0.4))\n  .cutoff(riseFilter)\n  .room(0.9)\n  .size(0.95)\n\n// Noise riser\nlet noise = s(\"hh\").bank(\"RolandTR909\")\n  .speed(0.1)\n  .cutoff(riseFilter)\n  .resonance(18)\n  .gain(tension.mul(0.35))\n  .room(0.95)\n  .size(0.95)\n  .struct(\"x x x x\")\n\n// Arp teasing the melody\nlet arp = note(\"a4 ~ e5 ~ c5 ~ a5 ~\")\n  .s(\"triangle\")\n  .cutoff(riseFilter)\n  .decay(0.1)\n  .sustain(0)\n  .gain(tension.mul(0.25))\n  .delay(0.5)\n  .delaytime(3/16)\n  .delayfeedback(0.5)\n  .room(0.6)\n\nstack(diva, choir, snare, kickGhost, risePad, noise, arp)",
+    "tags": [
+      "trance",
+      "build",
+      "rise",
+      "tension"
+    ]
+  }
+]

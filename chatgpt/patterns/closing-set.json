@@ -1,0 +1,11 @@
+{
+  "name": "closing-set",
+  "content": "// DJ OPUS - CLOSING SET\n// Last track of the night. Stars overhead.\nsetcps(118/60/4)\n\nlet depth = slider(0.4, 0, 0.7, 0.01, \"DEPTH\")\nlet fade = slider(0.5, 0, 1, 0.01, \"FADE\")\n\n// No kick. Just the wash.\nlet sub = note(\"<a1 e1>\".slow(8))\n  .s(\"sine\")\n  .gain(0.3)\n  .decay(2)\n  .sustain(0.2)\n\n// Pad - barely there, breathing\nlet pad = note(\"<[a2,e3] [e2,b2]>\".slow(8))\n  .s(\"sawtooth\")\n  .cutoff(perlin.range(200, 900).slow(32))\n  .resonance(3)\n  .attack(3)\n  .decay(4)\n  .sustain(0.4)\n  .release(4)\n  .gain(depth)\n  .room(0.95)\n  .size(0.98)\n\n// Voice texture - slow vowel drift\nlet voice = note(\"<a3 e3>\".slow(8))\n  .s(\"sawtooth\")\n  .vowel(\"<a o u>\".slow(16))\n  .cutoff(perlin.range(300, 1000).slow(32))\n  .resonance(5)\n  .attack(2)\n  .decay(3)\n  .sustain(0.3)\n  .release(3)\n  .gain(depth)\n  .room(0.95)\n  .size(0.98)\n\n// One note. Long delay. Fading.\nlet note1 = note(\"~ ~ ~ a4 ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\".slow(4))\n  .s(\"triangle\")\n  .cutoff(1200)\n  .decay(1.5)\n  .sustain(0)\n  .gain(fade)\n  .delay(0.6)\n  .delaytime(1)\n  .delayfeedback(0.6)\n  .room(0.9)\n\nstack(sub, pad, voice, note1)",
+  "tags": [
+    "ambient",
+    "closing",
+    "chill",
+    "late-night"
+  ],
+  "timestamp": "2026-03-23T06:38:12.537Z"
+}

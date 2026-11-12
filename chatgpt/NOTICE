@@ -1,0 +1,51 @@
+DJ Opus
+Copyright (c) 2026 moore.nyc
+
+This repository is under two licenses.
+
+1. Everything except cloudflare/patches/ is under the MIT License (LICENSE).
+
+2. cloudflare/patches/ is under the GNU Affero General Public License,
+   version 3 or (at your option) any later version (cloudflare/patches/LICENSE).
+   The patches there modify Strudel, which is under that license, so they are
+   too.
+
+STRUDEL AND THE PLAYER
+
+Strudel (https://codeberg.org/uzu/strudel), Copyright (C) Alex McLean and
+contributors, is AGPL-3.0-or-later. It is not included in this repository.
+
+The player that DJ Opus serves at /s/<id> is a modified build of the Strudel
+REPL. `npm run build:strudel` (cloudflare/scripts/build-strudel.sh) makes it:
+it clones Strudel at commit 9f19e4616a358ad31032e0f9af82060d23bc0d70, applies
+cloudflare/patches/strudel/*.patch in order, builds the site, and adds
+cloudflare/client/strudel-ws-bridge.js and cloudflare/client/_headers. That
+commit, those patches, that script and those two files are the Corresponding
+Source of the player. The player links to this repository ("Source") and to
+the Strudel commit ("Strudel").
+
+The bridge script (cloudflare/client/strudel-ws-bridge.js) is this project's
+own code under the MIT License, which is compatible with the AGPL. The player
+as served, Strudel and the bridge together, is covered by the AGPL.
+
+If you deploy a modified player (other patches, another Strudel commit, or a
+changed bridge), the AGPL asks you to offer its source to the people who use
+it: change the "Source" link (SOURCE_LINKS in
+cloudflare/client/strudel-ws-bridge.js) to point at your copy.
+
+CHATGPT PLAYER
+
+The ChatGPT player uses the same pinned Strudel source and patches, with
+cloudflare/client/strudel-ws-bridge-chatgpt.js and the widget implementation
+in cloudflare/src/widget/. Its predeploy step adds the ChatGPT bridge after the
+Strudel build. The source tree and plugin package are retained in this directory;
+see README.md for the build steps. A deployment must keep its visible Source
+link pointed at the source corresponding to the version it actually serves.
+
+PORTED CODE
+
+cloudflare/src/services/MusicTheory.ts, PatternGenerator.ts and
+PatternValidator.ts are ported from strudel-mcp-server
+(https://github.com/williamzujkowski/strudel-mcp-server),
+Copyright (c) 2025 William Zujkowski, under the MIT License (the same terms as
+LICENSE).

@@ -57,9 +57,9 @@ claude plugin install djopus@djopus
 
 The skill then triggers on music talk by itself, and is `/djopus:dj-opus` by name. If you already added the server with `claude mcp add`, remove that entry first (`claude mcp remove djopus`), or the tools show up twice.
 
-## ChatGPT App Port
+## ChatGPT App
 
-A ChatGPT Apps version of DJ Opus (MCP over Streamable HTTP, with the Strudel REPL rendered as an inline widget) is running in private beta. The implementation ships to this repository when the app is published to ChatGPT.
+DJ Opus for ChatGPT is being prepared for submission to OpenAI for review and approval; it is not yet publicly listed. Its inline Strudel player, Worker, and plugin source are available in the [`chatgpt/`](chatgpt/) directory as a reference.
 
 ## Architecture
 
